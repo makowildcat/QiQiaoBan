@@ -8,7 +8,8 @@ namespace QiQiaoBan.ViewModel
     class MainViewModel : ViewModelBase
     {
         private string _title;
-        public string Title {
+        public string Title 
+        {
             get
             {
                 return _title;
@@ -22,6 +23,7 @@ namespace QiQiaoBan.ViewModel
         public MainViewModel()
         {
             Title = "QiQiaoBan";
+
         }
     }
 }
