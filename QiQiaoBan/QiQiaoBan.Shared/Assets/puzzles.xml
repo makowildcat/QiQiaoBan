@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ArrayOfPuzzle>
   <Puzzle>
-    <Name>Bonjour</Name>
+    <Name>Cat</Name>
+    <Pieces>
+      <Piece Left="125.00" Top="150.00" Angle="90"/>
+      <Piece Left="225.00" Top="150.00" Angle="270"/>
+      <Piece Left="175.00" Top="200.00" Angle="0"/>
+      <Piece Left="195.71" Top="270.71" Angle="225"/>
+      <Piece Left="195.71" Top="412.13" Angle="45"/>
+      <Piece Left="195.71" Top="482.84" Angle="45"/>
+      <Piece Left="337.13" Top="447.49" Angle="45"/>
+    </Pieces>
   </Puzzle>
   <Puzzle>
-    <Name>Hello</Name>
+    <Name>Heart</Name>
+      <Piece Left="150.00" Top="150.00" Angle="90"/>
+      <Piece Left="50.00" Top="50.00" Angle="270"/>
   </Puzzle>
   <Puzzle>
-    <Name>Ni Hao</Name>
+    <Name>One</Name>
+      <Piece Left="125.00" Top="50.00" Angle="90"/>
+      <Piece Left="225.00" Top="250.00" Angle="270"/>
   </Puzzle>
 </ArrayOfPuzzle>

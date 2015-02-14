@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Serialization;
 
 namespace QiQiaoBan.Model
 {
@@ -9,6 +10,7 @@ namespace QiQiaoBan.Model
     {
         public const string LeftPropertyName = "Left";
         private double _left;
+        [XmlAttribute]
         public double Left
         {
             get
@@ -23,6 +25,7 @@ namespace QiQiaoBan.Model
 
         public const string TopPropertyName = "Top";
         private double _top;
+        [XmlAttribute]
         public double Top
         {
             get
@@ -37,6 +40,7 @@ namespace QiQiaoBan.Model
 
         public const string AnglePropertyName = "Angle";
         private double _angle;
+        [XmlAttribute]
         public double Angle
         {
             get

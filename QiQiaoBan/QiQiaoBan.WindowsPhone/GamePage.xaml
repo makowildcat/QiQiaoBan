@@ -6,9 +6,39 @@
     xmlns:local="using:QiQiaoBan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:common="using:QiQiaoBan.Common"
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+        <StackPanel>
+            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+            
+            <common:ItemsControlCanvas x:Name="itemsControlPieces" ItemsSource="{Binding Pieces}">
+                <common:ItemsControlCanvas.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas/>
+                    </ItemsPanelTemplate>
+                </common:ItemsControlCanvas.ItemsPanel>
+                <common:ItemsControlCanvas.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Width="32" 
+                                   Height="32" 
+                                   Fill="Purple" 
+                                   ManipulationMode="All">
+
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="ManipulationDelta">
+                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.SampleCommand, Mode=OneWay}"/>
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </Rectangle>
+
+                    </DataTemplate>
+                </common:ItemsControlCanvas.ItemTemplate>
+
+            </common:ItemsControlCanvas>
+        </StackPanel>       
     </Grid>
 </Page>

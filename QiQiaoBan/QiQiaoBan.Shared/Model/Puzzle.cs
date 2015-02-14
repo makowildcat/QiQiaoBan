@@ -23,6 +23,17 @@ namespace QiQiaoBan.Model
         }
 
         public const string PiecesPropertyName = "Pieces";
-        public ObservableCollection<Piece> Pieces;        
+        private List<Piece> _pieces;
+        public List<Piece> Pieces
+        {
+            get
+            {
+                return _pieces;
+            }
+            set
+            {
+                Set(PiecesPropertyName, ref _pieces, value);
+            }
+        }
     }
 }
