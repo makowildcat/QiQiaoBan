@@ -1,11 +1,12 @@
-﻿using QiQiaoBan.Model;
+﻿using GalaSoft.MvvmLight;
+using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace QiQiaoBan.ViewModel
 {
-    class GameViewModel
+    class GameViewModel : ViewModelBase
     {
         public Puzzle Model
         {

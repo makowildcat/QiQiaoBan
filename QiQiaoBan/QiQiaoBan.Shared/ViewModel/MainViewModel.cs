@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using QiQiaoBan.Design;
+using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
@@ -22,16 +23,16 @@ namespace QiQiaoBan.ViewModel
     class MainViewModel : ViewModelBase
     {
         private readonly IDataService _dataService;
-        private readonly DesignDataService _designService;
+        private readonly INavigationService _navigationService;
 
         /*
          * Constructor
          */
-        public MainViewModel(IDataService dataService)
+        public MainViewModel(IDataService dataService, INavigationService navigationService)
         {
             Title = "QiQiaoBan";
             _dataService = dataService;
-            _designService = new DesignDataService();
+            _navigationService = navigationService;
             Puzzles = new ObservableCollection<GameViewModel>();
         }
 
@@ -75,6 +76,23 @@ namespace QiQiaoBan.ViewModel
                 }
             }
             Debug.WriteLine("GetPuzzles()");
+        }
+
+        public const string SelectedPuzzlePropertyName = "SelectedPuzzle";
+        private GameViewModel _selectedPuzzle;
+        public GameViewModel SelectedPuzzle
+        {
+            get
+            {
+                return _selectedPuzzle;
+            }
+            set
+            {
+                if (Set(SelectedPuzzlePropertyName, ref _selectedPuzzle, value) && value != null)
+                {
+                    _navigationService.Navigate(typeof(GamePage));
+                }
+            }
         }
     }
 }
