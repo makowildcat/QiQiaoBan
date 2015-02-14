@@ -15,9 +15,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Design\DesignDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\DataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\IDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Piece.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Puzzle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GameViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\puzzles.xml" />
   </ItemGroup>
 </Project>

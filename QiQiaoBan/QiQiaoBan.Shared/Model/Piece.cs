@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QiQiaoBan.Model
 {
-    class Piece : ObservableObject
+    public class Piece : ObservableObject
     {
         public const string LeftPropertyName = "Left";
         private double _left;

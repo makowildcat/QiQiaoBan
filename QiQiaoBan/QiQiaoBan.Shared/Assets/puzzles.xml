@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ArrayOfPuzzle>
+  <Puzzle>
+    <Name>Bonjour</Name>
+  </Puzzle>
+  <Puzzle>
+    <Name>Hello</Name>
+  </Puzzle>
+  <Puzzle>
+    <Name>Ni Hao</Name>
+  </Puzzle>
+</ArrayOfPuzzle>
