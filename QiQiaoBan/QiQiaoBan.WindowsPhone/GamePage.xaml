@@ -30,7 +30,7 @@
 
                             <interactivity:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="ManipulationDelta">
-                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.SampleCommand, Mode=OneWay}"/>
+                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationDeltaCommand, Mode=OneWay}"/>
                                 </core:EventTriggerBehavior>
                             </interactivity:Interaction.Behaviors>
                         </Rectangle>
