@@ -23,12 +23,12 @@
                 </common:ItemsControlCanvas.ItemsPanel>
                 <common:ItemsControlCanvas.ItemTemplate>
                     <DataTemplate>
-                        <Polygon Points="-25,-25 -25,25 25,25 25,-25"
+                        <Polygon Points="{Binding Points, Mode=OneTime}"
                                  Fill="Purple"
                                  ManipulationMode="All"
-                                 Tag="{Binding IndexTag}">
+                                 Tag="{Binding IndexTag, Mode=OneTime}">
                             <Polygon.RenderTransform>
-                                <RotateTransform Angle="{Binding Angle}"/>
+                                <RotateTransform Angle="{Binding Angle, Mode=OneWay}"/>
                             </Polygon.RenderTransform>
                             
                             <interactivity:Interaction.Behaviors>

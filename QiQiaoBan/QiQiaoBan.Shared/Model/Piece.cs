@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
+using Windows.Foundation;
+using Windows.UI.Xaml.Media;
 
 namespace QiQiaoBan.Model
 {
@@ -68,6 +70,65 @@ namespace QiQiaoBan.Model
             }
         }
 
+        private string _type;
+        [XmlAttribute]
+        public string Type
+        {
+            get
+            {
+                return _type;
+            }
+            set
+            {
+                _type = value;
+            }
+        }
+
+        public const string PointsPropertyName = "Points";
+        [XmlIgnore]
+        public PointCollection Points
+        {
+            get
+            {
+                if (Type.Equals("square"))
+                    return square();
+                if (Type.Equals("parallelogram"))
+                    return parallelogram();
+                if (Type.Equals("smallTriangle"))
+                    return smallTriangle();
+                if (Type.Equals("mediumTriangle"))
+                    return mediumTriangle();
+                if (Type.Equals("largeTriangle"))
+                    return largeTriangle();
+                return null;
+            }
+        }
+
         public Piece() { }
+
+        public static PointCollection square()
+        {
+            return new PointCollection() { new Point(-50, 0), new Point(0, 50), new Point(50, 0), new Point(0, -50) };
+        }
+
+        public static PointCollection parallelogram()
+        {
+            return new PointCollection() { new Point(-25, -25), new Point(-25, 75), new Point(25, 25), new Point(25, -75) };
+        }
+
+        public static PointCollection smallTriangle()
+        {
+            return new PointCollection() { new Point(0, -50), new Point(0, 50), new Point(50, 0) };
+        }
+
+        public static PointCollection mediumTriangle()
+        {
+            return new PointCollection() { new Point(-50, -50), new Point(50, 50), new Point(50, -50) };
+        }
+
+        public static PointCollection largeTriangle()
+        {
+            return new PointCollection() { new Point(0, -100), new Point(0, 100), new Point(100, 0) };
+        }
     }
 }

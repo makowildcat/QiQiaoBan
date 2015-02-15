@@ -3,27 +3,27 @@
   <Puzzle>
     <Name>Cat</Name>
     <Pieces>
-      <Piece Left="125.00" Top="150.00" Angle="90"/>
-      <Piece Left="225.00" Top="150.00" Angle="270"/>
-      <Piece Left="175.00" Top="200.00" Angle="0"/>
-      <Piece Left="195.71" Top="270.71" Angle="225"/>
-      <Piece Left="195.71" Top="412.13" Angle="45"/>
-      <Piece Left="195.71" Top="482.84" Angle="45"/>
-      <Piece Left="337.13" Top="447.49" Angle="45"/>
+      <Piece Left="125.00" Top="150.00" Angle="0"  Type="smallTriangle"/>
+      <Piece Left="225.00" Top="150.00" Angle="180" Type="smallTriangle"/>
+      <Piece Left="175.00" Top="200.00" Angle="0"   Type="square"/>
+      <Piece Left="195.71" Top="270.71" Angle="135" Type="largeTriangle"/>
+      <Piece Left="195.71" Top="412.13" Angle="315"  Type="largeTriangle"/>
+      <Piece Left="195.71" Top="482.84" Angle="315"  Type="mediumTriangle"/>
+      <Piece Left="337.13" Top="447.49" Angle="45"  Type="parallelogram"/>
     </Pieces>
   </Puzzle>
   <Puzzle>
     <Name>Heart</Name>
     <Pieces>
-      <Piece Left="150.00" Top="150.00" Angle="90"/>
-      <Piece Left="50.00" Top="50.00" Angle="270"/>
+      <Piece Left="150.00" Top="150.00" Angle="90" Type="square"/>
+      <Piece Left="50.00" Top="50.00" Angle="270" Type="largeTriangle"/>
     </Pieces>      
   </Puzzle>
   <Puzzle>
     <Name>One</Name>
     <Pieces>
-      <Piece Left="125.00" Top="50.00" Angle="90"/>
-      <Piece Left="225.00" Top="250.00" Angle="270"/>
+      <Piece Left="125.00" Top="50.00" Angle="90" Type="square"/>
+      <Piece Left="225.00" Top="250.00" Angle="270" Type="largeTriangle"/>
     </Pieces>      
   </Puzzle>
 </ArrayOfPuzzle>
