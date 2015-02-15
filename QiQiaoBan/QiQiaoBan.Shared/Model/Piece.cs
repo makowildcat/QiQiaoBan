@@ -70,6 +70,36 @@ namespace QiQiaoBan.Model
             }
         }
 
+        public const string StylePropertyName = "Style";
+        private string _style;
+        [XmlIgnore]
+        public string Style
+        {
+            get
+            {
+                return _style;
+            }
+            set
+            {
+                Set(StylePropertyName, ref _style, value);
+            }
+        }
+
+        public const string ZIndexPropertyName = "ZIndex";
+        private int _zindex;
+        [XmlIgnore]
+        public int ZIndex
+        {
+            get
+            {
+                return _zindex;
+            }
+            set
+            {
+                Set(ZIndexPropertyName, ref _zindex, value);
+            }
+        }
+
         private string _type;
         [XmlAttribute]
         public string Type
@@ -101,21 +131,6 @@ namespace QiQiaoBan.Model
                 if (Type.Equals("largeTriangle"))
                     return largeTriangle();
                 return null;
-            }
-        }
-
-        public const string StylePropertyName = "Style";
-        private string _style;
-        [XmlIgnore]
-        public string Style
-        {
-            get
-            {
-                return _style;
-            }
-            set
-            {
-                Set(StylePropertyName, ref _style, value);
             }
         }
 

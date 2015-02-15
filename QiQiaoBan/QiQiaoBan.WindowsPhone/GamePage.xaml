@@ -38,6 +38,9 @@
                             </Polygon.RenderTransform>
                             
                             <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="ManipulationStarted">
+                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationStartedCommand, Mode=OneWay}"/>
+                                </core:EventTriggerBehavior>
                                 <core:EventTriggerBehavior EventName="ManipulationDelta">
                                     <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationDeltaCommand, Mode=OneWay}"/>
                                 </core:EventTriggerBehavior>

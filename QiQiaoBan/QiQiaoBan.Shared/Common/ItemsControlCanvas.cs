@@ -13,10 +13,12 @@ namespace QiQiaoBan.Common
         {
             Binding leftBinding = new Binding() { Path = new PropertyPath("Left"), Mode = BindingMode.TwoWay };
             Binding topBinding = new Binding() { Path = new PropertyPath("Top"), Mode = BindingMode.TwoWay };
+            Binding zIndexBinding = new Binding() { Path = new PropertyPath("ZIndex"), Mode = BindingMode.TwoWay };
 
             FrameworkElement contentControl = (FrameworkElement)element;
             contentControl.SetBinding(Canvas.LeftProperty, leftBinding);
             contentControl.SetBinding(Canvas.TopProperty, topBinding);
+            contentControl.SetBinding(Canvas.ZIndexProperty, zIndexBinding);
 
             base.PrepareContainerForItemOverride(element, item);
         }

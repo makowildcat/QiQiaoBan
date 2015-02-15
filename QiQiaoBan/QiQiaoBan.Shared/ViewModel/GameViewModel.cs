@@ -21,20 +21,6 @@ namespace QiQiaoBan.ViewModel
             private set;
         }
 
-        public GameViewModel(Puzzle model)
-        {
-            Model = model;
-            Pieces = model.Pieces;
-            for (int i = 0; i < Pieces.Count; i++)
-            {
-                Pieces[i].IndexTag = i;
-                Pieces[i].Style = "PolygonNormal";
-            }
-
-            PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(this.ExecutePolygonManipulationDelta);
-            PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(this.ExecutePolygonTapped);
-        }
-
         public string Name
         {
             get
@@ -57,21 +43,57 @@ namespace QiQiaoBan.ViewModel
             }
         }
 
+        public RelayCommand<ManipulationStartedRoutedEventArgs> PolygonManipulationStartedCommand { get; private set; }
         public RelayCommand<ManipulationDeltaRoutedEventArgs> PolygonManipulationDeltaCommand { get; private set; }
-        public void ExecutePolygonManipulationDelta(ManipulationDeltaRoutedEventArgs parameter)
+        public RelayCommand<TappedRoutedEventArgs> PolygonTappedCommand { get; private set; }
+
+        private int ZIndex;
+
+        public GameViewModel(Puzzle model)
         {
-            Polygon polygon = parameter.OriginalSource as Polygon;
-                        
-            Pieces[int.Parse(polygon.Tag.ToString())].Left += parameter.Delta.Translation.X;
-            Pieces[int.Parse(polygon.Tag.ToString())].Top += parameter.Delta.Translation.Y;
+            Model = model;
+            Pieces = model.Pieces;
+            ZIndex = 0;
+            for (int i = 0; i < Pieces.Count; i++)
+            {
+                Pieces[i].IndexTag = i;
+                Pieces[i].ZIndex = ++ZIndex;
+                Pieces[i].Style = "PolygonNormal";
+            }
+
+            PolygonManipulationStartedCommand = new RelayCommand<ManipulationStartedRoutedEventArgs>(ExecutePolygonManipulationStarted);
+            PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(ExecutePolygonManipulationDelta);
+            PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
         }
 
-        public RelayCommand<TappedRoutedEventArgs> PolygonTappedCommand { get; private set; }
+        public void ExecutePolygonManipulationStarted(ManipulationStartedRoutedEventArgs parameter)
+        {
+            var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
+            Pieces[index].ZIndex = ++ZIndex;
+        }
+
+        public void ExecutePolygonManipulationDelta(ManipulationDeltaRoutedEventArgs parameter)
+        {
+            var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
+            Pieces[index].Left += parameter.Delta.Translation.X;
+            Pieces[index].Top += parameter.Delta.Translation.Y;
+        }
+
         public void ExecutePolygonTapped(TappedRoutedEventArgs parameter)
         {
-            Polygon polygon = parameter.OriginalSource as Polygon;
+            var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
+            Pieces[index].ZIndex = ++ZIndex;
+            Pieces[index].Angle = Rotate(Pieces[index].Angle);
+        }
 
-            Pieces[int.Parse(polygon.Tag.ToString())].Angle += 45;            
+        private double Rotate(double currentAngle)
+        {
+            return (currentAngle+45) % 360;
+        }
+
+        private int FrameworkElementTagToInt(FrameworkElement polygon)
+        {
+            return int.Parse(polygon.Tag.ToString());
         }
 
     }
