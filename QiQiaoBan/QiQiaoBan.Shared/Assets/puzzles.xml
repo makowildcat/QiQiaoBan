@@ -3,13 +3,13 @@
   <Puzzle>
     <Name>Cat</Name>
     <Pieces>
-      <Piece Left="125.00" Top="150.00" Angle="0"  Type="smallTriangle"/>
-      <Piece Left="225.00" Top="150.00" Angle="180" Type="smallTriangle"/>
-      <Piece Left="175.00" Top="200.00" Angle="0"   Type="square"/>
-      <Piece Left="195.71" Top="270.71" Angle="135" Type="largeTriangle"/>
-      <Piece Left="195.71" Top="412.13" Angle="315"  Type="largeTriangle"/>
-      <Piece Left="195.71" Top="482.84" Angle="315"  Type="mediumTriangle"/>
-      <Piece Left="337.13" Top="447.49" Angle="45"  Type="parallelogram"/>
+      <Piece Left="75.00"  Top="150.00" Angle="0"   Type="smallTriangle"/>
+      <Piece Left="175.00" Top="150.00" Angle="180" Type="smallTriangle"/>
+      <Piece Left="125.00" Top="200.00" Angle="0"   Type="square"/>
+      <Piece Left="145.75" Top="270.75" Angle="135" Type="largeTriangle"/>
+      <Piece Left="145.75" Top="411.25" Angle="315" Type="largeTriangle"/>
+      <Piece Left="146.00" Top="481.75" Angle="315" Type="mediumTriangle"/>
+      <Piece Left="287.25" Top="446.25" Angle="45"  Type="parallelogram"/>
     </Pieces>
   </Puzzle>
   <Puzzle>
