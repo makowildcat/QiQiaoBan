@@ -104,6 +104,21 @@ namespace QiQiaoBan.Model
             }
         }
 
+        public const string StylePropertyName = "Style";
+        private string _style;
+        [XmlIgnore]
+        public string Style
+        {
+            get
+            {
+                return _style;
+            }
+            set
+            {
+                Set(StylePropertyName, ref _style, value);
+            }
+        }
+
         public Piece() { }
 
         public static PointCollection square()

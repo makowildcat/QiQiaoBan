@@ -8,8 +8,13 @@
     xmlns:vm="using:QiQiaoBan.ViewModel">
     
     <Application.Resources>
-        <vm:ViewModelLocator x:Key="Locator"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Polygon.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <vm:ViewModelLocator x:Key="Locator"
                              d:IsDataSource="True" />
+        </ResourceDictionary>
     </Application.Resources>
 
 </Application>

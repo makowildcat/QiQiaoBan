@@ -9,9 +9,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:common="using:QiQiaoBan.Common"
+    xmlns:help="using:QiQiaoBan.Helpers"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+        <help:StringToStyleConverter x:Key="StringToStyleConverter"/>
+    </Page.Resources>
+
+    <Grid>              
         <StackPanel>
             <TextBlock Text="{Binding Name, Mode=OneTime}"/>
             
@@ -23,10 +28,11 @@
                 </common:ItemsControlCanvas.ItemsPanel>
                 <common:ItemsControlCanvas.ItemTemplate>
                     <DataTemplate>
-                        <Polygon Points="{Binding Points, Mode=OneTime}"
-                                 Fill="Purple"
-                                 ManipulationMode="All"
-                                 Tag="{Binding IndexTag, Mode=OneTime}">
+                        <Polygon x:Name="polygon" 
+                                Points="{Binding Points, Mode=OneTime}"
+                                Style="{Binding Style, Converter={StaticResource StringToStyleConverter}}"
+                                ManipulationMode="All"
+                                Tag="{Binding IndexTag, Mode=OneTime}">
                             <Polygon.RenderTransform>
                                 <RotateTransform Angle="{Binding Angle, Mode=OneWay}"/>
                             </Polygon.RenderTransform>

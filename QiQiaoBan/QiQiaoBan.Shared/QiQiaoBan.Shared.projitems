@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Design\DesignDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\StringToStyleConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\DataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\IDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Piece.cs" />
@@ -29,5 +30,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\puzzles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Resources\Polygon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

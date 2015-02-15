@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
-    
+	
     <Grid>
         <StackPanel>
             <TextBlock Text="{Binding Title, Mode=OneWay}"/>
@@ -19,7 +19,7 @@
                         <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
+            </ListBox>            
         </StackPanel>
     </Grid>
 </Page>
