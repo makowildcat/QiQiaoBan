@@ -54,7 +54,7 @@ namespace QiQiaoBan.Model
                 Set(AnglePropertyName, ref _angle, value);
             }
         }
-
+        
         public const string IndexTagPropertyName = "IndexTag";
         private int _indexTag;
         [XmlIgnore]
@@ -120,15 +120,15 @@ namespace QiQiaoBan.Model
         {
             get
             {
-                if (Type.Equals("square"))
+                if (Type.Equals(Piece.SQUARE))
                     return square();
-                if (Type.Equals("parallelogram"))
+                if (Type.Equals(Piece.PARALLELOGRAM))
                     return parallelogram();
-                if (Type.Equals("smallTriangle"))
+                if (Type.Equals(Piece.SMALLTRIANGLE))
                     return smallTriangle();
-                if (Type.Equals("mediumTriangle"))
+                if (Type.Equals(Piece.MEDIUMTRIANGLE))
                     return mediumTriangle();
-                if (Type.Equals("largeTriangle"))
+                if (Type.Equals(Piece.LARGETRIANGLE))
                     return largeTriangle();
                 return null;
             }
@@ -136,26 +136,31 @@ namespace QiQiaoBan.Model
 
         public Piece() { }
 
+        public static string SQUARE = "square";
         public static PointCollection square()
         {
             return new PointCollection() { new Point(-50, 0), new Point(0, 50), new Point(50, 0), new Point(0, -50) };
         }
 
+        public static string PARALLELOGRAM = "parallelogram";
         public static PointCollection parallelogram()
         {
             return new PointCollection() { new Point(-25, -25), new Point(-25, 75), new Point(25, 25), new Point(25, -75) };
         }
 
+        public static string SMALLTRIANGLE = "smallTriangle";
         public static PointCollection smallTriangle()
         {
             return new PointCollection() { new Point(0, -50), new Point(0, 50), new Point(50, 0) };
         }
 
+        public static string MEDIUMTRIANGLE = "mediumTriangle";
         public static PointCollection mediumTriangle()
         {
             return new PointCollection() { new Point(-50, -50), new Point(50, 50), new Point(50, -50) };
         }
 
+        public static string LARGETRIANGLE = "largeTriangle";
         public static PointCollection largeTriangle()
         {
             return new PointCollection() { new Point(0, -100), new Point(0, 100), new Point(100, 0) };

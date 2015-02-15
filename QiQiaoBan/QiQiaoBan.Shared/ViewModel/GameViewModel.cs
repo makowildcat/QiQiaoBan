@@ -45,6 +45,7 @@ namespace QiQiaoBan.ViewModel
 
         public RelayCommand<ManipulationStartedRoutedEventArgs> PolygonManipulationStartedCommand { get; private set; }
         public RelayCommand<ManipulationDeltaRoutedEventArgs> PolygonManipulationDeltaCommand { get; private set; }
+        public RelayCommand<ManipulationCompletedRoutedEventArgs> PolygonManipulationCompletedCommand { get; private set; }
         public RelayCommand<TappedRoutedEventArgs> PolygonTappedCommand { get; private set; }
 
         private int ZIndex;
@@ -69,6 +70,7 @@ namespace QiQiaoBan.ViewModel
 
             PolygonManipulationStartedCommand = new RelayCommand<ManipulationStartedRoutedEventArgs>(ExecutePolygonManipulationStarted);
             PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(ExecutePolygonManipulationDelta);
+            PolygonManipulationCompletedCommand = new RelayCommand<ManipulationCompletedRoutedEventArgs>(ExecutePolygonManipulationCompleted);
             PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
         }
 
@@ -91,6 +93,19 @@ namespace QiQiaoBan.ViewModel
             Pieces[index].Top += parameter.Delta.Translation.Y;
         }
 
+        public void ExecutePolygonManipulationCompleted(ManipulationCompletedRoutedEventArgs parameter)
+        {
+            var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
+            if (index < indexDivider)
+                return;
+            
+            for (int i = 0; i < indexDivider; i++)
+            {
+                if (isMatching(Pieces[index], Pieces[i]))
+                    Debug.WriteLine("Matched!!");
+            }
+        }
+
         public void ExecutePolygonTapped(TappedRoutedEventArgs parameter)
         {
             var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
@@ -111,5 +126,33 @@ namespace QiQiaoBan.ViewModel
             return int.Parse(polygon.Tag.ToString());
         }
 
+        private double getAngleModulo(Piece piece)
+        {
+            if (piece.Type.Equals(Piece.SQUARE))
+                return 90;
+            if (piece.Type.Equals(Piece.PARALLELOGRAM))
+                return 180;
+            return 360;
+        }
+
+        private bool isMatching(Piece pieceMoving, Piece pieceLocked)
+        {
+            if (pieceMoving.Type != pieceLocked.Type)
+                return false;
+            Debug.WriteLine("Type matched");
+
+            if (pieceMoving.Angle % getAngleModulo(pieceMoving) != pieceLocked.Angle % getAngleModulo(pieceLocked))
+                return false;
+            Debug.WriteLine("Angle matched");
+
+            var deltaLeft = pieceMoving.Left - pieceLocked.Left;
+            var deltaTop = pieceMoving.Top - pieceLocked.Top;
+            var deltaMargin = 20;
+            if (deltaLeft < -deltaMargin || deltaLeft > deltaMargin || deltaTop < -deltaMargin || deltaTop > deltaMargin)
+                return false;
+            Debug.WriteLine("Coord matched");
+
+            return true;
+        }
     }
 }
