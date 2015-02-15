@@ -1,0 +1,20 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:QiQiaoBan.Common">
+
+    <!-- ici aussi regarder pour récupérer des couleurs du thème de Windows -->
+    <Style x:Key="PolygonNormal" TargetType="Polygon">
+        <Setter Property="Stroke" Value="Black"/>
+        <Setter Property="Fill" Value="Red"/>
+    </Style>
+    <Style x:Key="PolygonLock" TargetType="Polygon">
+        <Setter Property="Stroke" Value="White"/>
+        <Setter Property="Fill" Value="White"/>
+    </Style>
+    <Style x:Key="PolygonMatch" TargetType="Polygon">
+        <Setter Property="Stroke" Value="Red"/>
+        <Setter Property="Fill" Value="Red"/>
+    </Style>
+    
+</ResourceDictionary>
