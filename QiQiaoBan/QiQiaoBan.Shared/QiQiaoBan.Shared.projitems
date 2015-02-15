@@ -31,10 +31,4 @@
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Assets\puzzles.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Resources\Polygon.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
 </Project>
