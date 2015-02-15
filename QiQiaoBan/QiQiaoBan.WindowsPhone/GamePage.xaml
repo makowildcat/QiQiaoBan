@@ -13,7 +13,7 @@
 
     <Grid>
         <StackPanel>
-            <TextBlock Text="{Binding Name, Mode=OneWay}"/>
+            <TextBlock Text="{Binding Name, Mode=OneTime}"/>
             
             <common:ItemsControlCanvas x:Name="itemsControlPieces" ItemsSource="{Binding Pieces}">
                 <common:ItemsControlCanvas.ItemsPanel>
@@ -23,18 +23,23 @@
                 </common:ItemsControlCanvas.ItemsPanel>
                 <common:ItemsControlCanvas.ItemTemplate>
                     <DataTemplate>
-                        <Rectangle Width="32" 
-                                   Height="32" 
-                                   Fill="Purple" 
-                                   ManipulationMode="All">
-
+                        <Polygon Points="-25,-25 -25,25 25,25 25,-25"
+                                 Fill="Purple"
+                                 ManipulationMode="All"
+                                 Tag="{Binding IndexTag}">
+                            <Polygon.RenderTransform>
+                                <RotateTransform Angle="{Binding Angle}"/>
+                            </Polygon.RenderTransform>
+                            
                             <interactivity:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="ManipulationDelta">
                                     <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationDeltaCommand, Mode=OneWay}"/>
                                 </core:EventTriggerBehavior>
+                                <core:EventTriggerBehavior EventName="Tapped">
+                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonTappedCommand, Mode=OneWay}"/>
+                                </core:EventTriggerBehavior>
                             </interactivity:Interaction.Behaviors>
-                        </Rectangle>
-
+                        </Polygon>
                     </DataTemplate>
                 </common:ItemsControlCanvas.ItemTemplate>
 

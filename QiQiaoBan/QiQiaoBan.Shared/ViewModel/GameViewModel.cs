@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Shapes;
 
 namespace QiQiaoBan.ViewModel
 {
@@ -22,7 +23,13 @@ namespace QiQiaoBan.ViewModel
         {
             Model = model;
             Pieces = model.Pieces;
-            this.PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(this.ExecuteCommand);
+            for (int i = 0; i < Pieces.Count; i++)
+            {
+                Pieces[i].IndexTag = i;
+            }
+
+            PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(this.ExecutePolygonManipulationDelta);
+            PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(this.ExecutePolygonTapped);
         }
 
         public string Name
@@ -47,16 +54,22 @@ namespace QiQiaoBan.ViewModel
             }
         }
 
-        public RelayCommand<ManipulationDeltaRoutedEventArgs> PolygonManipulationDeltaCommand { get; private set; }    
-        
-        public void ExecuteCommand(ManipulationDeltaRoutedEventArgs parameter)
+        public RelayCommand<ManipulationDeltaRoutedEventArgs> PolygonManipulationDeltaCommand { get; private set; }
+        public void ExecutePolygonManipulationDelta(ManipulationDeltaRoutedEventArgs parameter)
         {
-            Windows.UI.Xaml.Shapes.Rectangle rect = parameter.OriginalSource as Windows.UI.Xaml.Shapes.Rectangle;
+            Polygon polygon = parameter.OriginalSource as Polygon;
             
-            //Pieces[int.Parse(rect.Tag.ToString())].Left += parameter.Delta.Translation.X;
-            //Pieces[int.Parse(rect.Tag.ToString())].Top += parameter.Delta.Translation.Y;
-            Pieces[0].Left += parameter.Delta.Translation.X;
-            Pieces[0].Top += parameter.Delta.Translation.Y;
+            Pieces[int.Parse(polygon.Tag.ToString())].Left += parameter.Delta.Translation.X;
+            Pieces[int.Parse(polygon.Tag.ToString())].Top += parameter.Delta.Translation.Y;
         }
+
+        public RelayCommand<TappedRoutedEventArgs> PolygonTappedCommand { get; private set; }
+        public void ExecutePolygonTapped(TappedRoutedEventArgs parameter)
+        {
+            Polygon polygon = parameter.OriginalSource as Polygon;
+
+            Pieces[int.Parse(polygon.Tag.ToString())].Angle += 45;            
+        }
+
     }
 }

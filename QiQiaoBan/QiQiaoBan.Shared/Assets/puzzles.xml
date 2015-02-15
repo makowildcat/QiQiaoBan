@@ -14,12 +14,16 @@
   </Puzzle>
   <Puzzle>
     <Name>Heart</Name>
+    <Pieces>
       <Piece Left="150.00" Top="150.00" Angle="90"/>
       <Piece Left="50.00" Top="50.00" Angle="270"/>
+    </Pieces>      
   </Puzzle>
   <Puzzle>
     <Name>One</Name>
+    <Pieces>
       <Piece Left="125.00" Top="50.00" Angle="90"/>
       <Piece Left="225.00" Top="250.00" Angle="270"/>
+    </Pieces>      
   </Puzzle>
 </ArrayOfPuzzle>

@@ -53,6 +53,21 @@ namespace QiQiaoBan.Model
             }
         }
 
+        public const string IndexTagPropertyName = "IndexTag";
+        private int _indexTag;
+        [XmlIgnore]
+        public int IndexTag
+        {
+            get
+            {
+                return _indexTag;
+            }
+            set
+            {
+                Set(IndexTagPropertyName, ref _indexTag, value);
+            }
+        }
+
         public Piece() { }
     }
 }
