@@ -9,7 +9,7 @@ namespace QiQiaoBan.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {            
-            return App.Current.Resources["PolygonNormal"];
+            return App.Current.Resources[value.ToString()];
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
