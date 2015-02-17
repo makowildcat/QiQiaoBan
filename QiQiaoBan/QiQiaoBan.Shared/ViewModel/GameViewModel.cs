@@ -50,22 +50,35 @@ namespace QiQiaoBan.ViewModel
 
         private int ZIndex;
         private int indexDivider;
+        private int countMatched;
 
         public GameViewModel(Puzzle model)
         {
             Model = model;
             Pieces = model.Pieces;
+
             ZIndex = 0;
             indexDivider = Pieces.Count;
+            countMatched = 0;
 
             Random random = new Random();
             for (int i = 0; i < indexDivider; i++)
             {
                 Pieces[i].IndexTag = i;
-                Pieces[i].ZIndex = -1;
+                Pieces[i].ZIndex = -2;
                 Pieces[i].Style = "PolygonLock";
+                Pieces[i].MatchWithIndex = -1;
 
-                Pieces.Add(new Piece() { ZIndex = ++ZIndex, Style = "PolygonNormal", IndexTag = i + indexDivider, Type = Pieces[i].Type, Left = random.Next(10, 300), Top = random.Next(10, 400), Angle = random.Next(0, 8) * 45 });
+                Pieces.Add(new Piece() { 
+                    ZIndex = ++ZIndex, 
+                    Style = "PolygonNormal", 
+                    IndexTag = i + indexDivider, 
+                    Type = Pieces[i].Type, 
+                    Left = random.Next(10, 300), 
+                    Top = random.Next(10, 400), 
+                    Angle = random.Next(0, 8) * 45, 
+                    MatchWithIndex = -1 
+                });
             }
 
             PolygonManipulationStartedCommand = new RelayCommand<ManipulationStartedRoutedEventArgs>(ExecutePolygonManipulationStarted);
@@ -81,6 +94,8 @@ namespace QiQiaoBan.ViewModel
                 return;
 
             Pieces[index].ZIndex = ++ZIndex;
+            if (Pieces[index].MatchWithIndex >= 0)
+                UnMatch(Pieces[index]);
         }
 
         public void ExecutePolygonManipulationDelta(ManipulationDeltaRoutedEventArgs parameter)
@@ -98,16 +113,8 @@ namespace QiQiaoBan.ViewModel
             var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
             if (index < indexDivider)
                 return;
-            
-            for (int i = 0; i < indexDivider; i++)
-            {
-                if (isMatching(Pieces[index], Pieces[i]))
-                {
-                    Debug.WriteLine("Matched!!");
-                    Pieces[index].Left = Pieces[i].Left;
-                    Pieces[index].Top = Pieces[i].Top;
-                }
-            }
+
+            checkAllForMatching(index);
         }
 
         public void ExecutePolygonTapped(TappedRoutedEventArgs parameter)
@@ -117,7 +124,27 @@ namespace QiQiaoBan.ViewModel
                 return;
 
             Pieces[index].ZIndex = ++ZIndex;
+            if (Pieces[index].MatchWithIndex >= 0)
+                UnMatch(Pieces[index]);
             Pieces[index].Angle = Rotate(Pieces[index].Angle);
+            checkAllForMatching(index);
+        }
+
+        private void checkAllForMatching(int index)
+        {
+            for (int i = 0; i < indexDivider; i++)
+            {
+                if (Pieces[i].MatchWithIndex >= 0)
+                    continue;
+
+                if (isMatching(Pieces[index], Pieces[i]))
+                {
+                    Match(Pieces[index], Pieces[i]);                    
+                }
+            }
+
+            if (countMatched == indexDivider)
+                Debug.WriteLine("You win!!");
         }
 
         private double Rotate(double currentAngle)
@@ -168,6 +195,25 @@ namespace QiQiaoBan.ViewModel
                 return false;
 
             return true;
+        }
+
+        private void Match(Piece pieceMoving, Piece pieceLock)
+        {
+            countMatched++;
+            pieceMoving.Left = pieceLock.Left;
+            pieceMoving.Top = pieceLock.Top;
+            pieceMoving.Style = "PolygonMatch";
+            pieceMoving.ZIndex = -1;
+            pieceMoving.MatchWithIndex = pieceLock.IndexTag;
+            pieceLock.MatchWithIndex = pieceMoving.IndexTag;
+        }
+
+        private void UnMatch(Piece p1)
+        {
+            countMatched--;
+            Pieces[p1.MatchWithIndex].MatchWithIndex = -1;
+            p1.MatchWithIndex = -1;
+            p1.Style = "PolygonNormal";
         }
     }
 }
