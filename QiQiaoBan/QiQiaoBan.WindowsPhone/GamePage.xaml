@@ -16,19 +16,14 @@
         <help:StringToStyleConverter x:Key="StringToStyleConverter"/>
     </Page.Resources>
 
-        <Grid>              
-        <StackPanel Height="Auto">
+    <Grid>              
+        <StackPanel>
             <TextBlock Text="{Binding Name, Mode=OneTime}"/>
-            <ScrollViewer
-                          ZoomMode="Enabled"
-                          MinZoomFactor="0.5"
-                          MaxZoomFactor="1.5"
-                          IsZoomInertiaEnabled="False" VerticalScrollMode="Disabled" HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                
+            
             <common:ItemsControlCanvas x:Name="itemsControlPieces" ItemsSource="{Binding Pieces}">
                 <common:ItemsControlCanvas.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Canvas Height="640"/>
+                        <Canvas/>
                     </ItemsPanelTemplate>
                 </common:ItemsControlCanvas.ItemsPanel>
                 <common:ItemsControlCanvas.ItemTemplate>
@@ -61,9 +56,6 @@
                 </common:ItemsControlCanvas.ItemTemplate>
 
             </common:ItemsControlCanvas>
-    
-    </ScrollViewer>
-    </StackPanel>       
+        </StackPanel>       
     </Grid>
-        
 </Page>
