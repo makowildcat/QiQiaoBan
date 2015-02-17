@@ -102,7 +102,11 @@ namespace QiQiaoBan.ViewModel
             for (int i = 0; i < indexDivider; i++)
             {
                 if (isMatching(Pieces[index], Pieces[i]))
+                {
                     Debug.WriteLine("Matched!!");
+                    Pieces[index].Left = Pieces[i].Left;
+                    Pieces[index].Top = Pieces[i].Top;
+                }
             }
         }
 
@@ -135,22 +139,33 @@ namespace QiQiaoBan.ViewModel
             return 360;
         }
 
-        private bool isMatching(Piece pieceMoving, Piece pieceLocked)
+        private bool isSameType(Piece p1, Piece p2)
         {
-            if (pieceMoving.Type != pieceLocked.Type)
-                return false;
-            Debug.WriteLine("Type matched");
+            return p1.Type == p2.Type;
+        }
 
-            if (pieceMoving.Angle % getAngleModulo(pieceMoving) != pieceLocked.Angle % getAngleModulo(pieceLocked))
-                return false;
-            Debug.WriteLine("Angle matched");
+        private bool isSameAngle(Piece p1, Piece p2)
+        {
+            return p1.Angle % getAngleModulo(p1) == p2.Angle % getAngleModulo(p2);
+        }
 
-            var deltaLeft = pieceMoving.Left - pieceLocked.Left;
-            var deltaTop = pieceMoving.Top - pieceLocked.Top;
-            var deltaMargin = 20;
-            if (deltaLeft < -deltaMargin || deltaLeft > deltaMargin || deltaTop < -deltaMargin || deltaTop > deltaMargin)
+        private bool isSameCoord(Piece p1, Piece p2, double margin = 0.0)
+        {
+            var deltaLeft = p1.Left - p2.Left;
+            var deltaTop = p1.Top - p2.Top;
+            return (deltaLeft >= -margin && deltaLeft <= margin) && (deltaTop >= -margin && deltaTop <= margin);
+        }
+
+        private bool isMatching(Piece p1, Piece p2)
+        {
+            if (!isSameType(p1, p2))
                 return false;
-            Debug.WriteLine("Coord matched");
+
+            if (!isSameAngle(p1, p2))
+                return false;
+
+            if (!isSameCoord(p1, p2, 20.0))
+                return false;
 
             return true;
         }
