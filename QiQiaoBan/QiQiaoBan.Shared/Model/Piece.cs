@@ -100,20 +100,6 @@ namespace QiQiaoBan.Model
             }
         }
 
-        private int _matchedWithIndex;
-        [XmlIgnore]
-        public int MatchWithIndex
-        {
-            get
-            {
-                return _matchedWithIndex;
-            }
-            set
-            {
-                _matchedWithIndex = value;
-            }
-        }
-
         private string _type;
         [XmlAttribute]
         public string Type
