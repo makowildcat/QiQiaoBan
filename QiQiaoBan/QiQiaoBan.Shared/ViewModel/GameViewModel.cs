@@ -9,6 +9,7 @@ using System.Text;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Shapes;
 
 namespace QiQiaoBan.ViewModel
@@ -68,16 +69,28 @@ namespace QiQiaoBan.ViewModel
         private DispatcherTimer dispatcherTime;
         
 
-        public GameViewModel(Puzzle model)
+        public GameViewModel()
         {
-            Model = model;
-            Pieces = model.Pieces;
+            Debug.WriteLine("GameViewModel.constructor");
+            dispatcherTime = new DispatcherTimer();
 
+            PolygonManipulationStartedCommand = new RelayCommand<ManipulationStartedRoutedEventArgs>(ExecutePolygonManipulationStarted);
+            PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(ExecutePolygonManipulationDelta);
+            PolygonManipulationCompletedCommand = new RelayCommand<ManipulationCompletedRoutedEventArgs>(ExecutePolygonManipulationCompleted);
+            PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
+        }
+
+        public void NavigateTo(NavigationEventArgs e)
+        {
+            Debug.WriteLine("GameViewModel.NavigateTo");
+            
+            Model = e.Parameter as Puzzle;
+            Pieces = Model.Pieces;
+            
             ZIndex = 0;
             indexDivider = Pieces.Count;
             countMatched = 0;
             Time = 0;
-            dispatcherTime = new DispatcherTimer();
 
             Random random = new Random();
             for (int i = 0; i < indexDivider; i++)
@@ -87,33 +100,24 @@ namespace QiQiaoBan.ViewModel
                 Pieces[i].Style = "PolygonLock";
                 Pieces[i].MatchWithIndex = -1;
 
-                Pieces.Add(new Piece() { 
-                    ZIndex = ++ZIndex, 
-                    Style = "PolygonNormal", 
-                    IndexTag = i + indexDivider, 
-                    Type = Pieces[i].Type, 
-                    Left = random.Next(10, 300), 
-                    Top = random.Next(10, 400), 
-                    Angle = random.Next(0, 8) * 45, 
-                    MatchWithIndex = -1 
+                Pieces.Add(new Piece()
+                {
+                    ZIndex = ++ZIndex,
+                    Style = "PolygonNormal",
+                    IndexTag = i + indexDivider,
+                    Type = Pieces[i].Type,
+                    Left = random.Next(10, 300),
+                    Top = random.Next(10, 400),
+                    Angle = random.Next(0, 8) * 45,
+                    MatchWithIndex = -1
                 });
             }
-
-            PolygonManipulationStartedCommand = new RelayCommand<ManipulationStartedRoutedEventArgs>(ExecutePolygonManipulationStarted);
-            PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(ExecutePolygonManipulationDelta);
-            PolygonManipulationCompletedCommand = new RelayCommand<ManipulationCompletedRoutedEventArgs>(ExecutePolygonManipulationCompleted);
-            PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
         }
 
-        public void NavigateTo()
-        {
-            Debug.WriteLine("GameViewModel.NavigateTo");
-            Debug.WriteLine("> " + Name);
-        }
-
-        public void NavigateFrom()
+        public void NavigateFrom(NavigationEventArgs e)
         {
             Debug.WriteLine("GameViewModel.NavigateFrom");
+            Pieces.RemoveRange(indexDivider, indexDivider);
         }
 
         public void ExecutePolygonManipulationStarted(ManipulationStartedRoutedEventArgs parameter)

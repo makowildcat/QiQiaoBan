@@ -26,6 +26,7 @@ namespace QiQiaoBan.ViewModel
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<GameViewModel>();
         }
 
         public MainViewModel Main
@@ -33,6 +34,14 @@ namespace QiQiaoBan.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        public GameViewModel Game
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<GameViewModel>();
             }
         }
     }

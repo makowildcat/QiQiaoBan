@@ -17,6 +17,7 @@ using System.Xml.Serialization;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Navigation;
 
 namespace QiQiaoBan.ViewModel
 {
@@ -34,11 +35,11 @@ namespace QiQiaoBan.ViewModel
             }
             private set
             {
-                Set("Title", ref _title, value);//_title = value;
+                Set("Title", ref _title, value);
             }
         }
 
-        public ObservableCollection<GameViewModel> Puzzles
+        public ObservableCollection<Puzzle> Puzzles
         {
             get;
             private set;
@@ -61,15 +62,15 @@ namespace QiQiaoBan.ViewModel
                 Puzzles.Clear();
                 foreach (var puzzle in puzzles)
                 {
-                    Puzzles.Add(new GameViewModel(puzzle));
+                    Puzzles.Add(puzzle);//new GameViewModel());
                 }
             }
             Debug.WriteLine("GetPuzzles()");
         }
 
         public const string SelectedPuzzlePropertyName = "SelectedPuzzle";
-        private GameViewModel _selectedPuzzle;
-        public GameViewModel SelectedPuzzle
+        private Puzzle _selectedPuzzle;
+        public Puzzle SelectedPuzzle
         {
             get
             {
@@ -79,7 +80,8 @@ namespace QiQiaoBan.ViewModel
             {
                 if (Set(SelectedPuzzlePropertyName, ref _selectedPuzzle, value) && value != null)
                 {
-                    _navigationService.Navigate(typeof(GamePage));
+                    Debug.WriteLine("SelectedPuzzle.Pieces.Count > " + _selectedPuzzle.Pieces.Count);
+                    _navigationService.Navigate(typeof(GamePage), value);
                 }
             }
         }
@@ -89,15 +91,15 @@ namespace QiQiaoBan.ViewModel
             Title = "QiQiaoBan";
             _dataService = dataService;
             _navigationService = navigationService;
-            Puzzles = new ObservableCollection<GameViewModel>();
+            Puzzles = new ObservableCollection<Puzzle>();
         }
 
-        public void NavigateTo()
+        public void NavigateTo(NavigationEventArgs e)
         {
             Debug.WriteLine("MainViewModel.NavigateTo");
         }
 
-        public void NavigateFrom()
+        public void NavigateFrom(NavigationEventArgs e)
         {
             Debug.WriteLine("MainViewModel.NavigateFrom");
         }

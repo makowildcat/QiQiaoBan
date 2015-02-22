@@ -71,7 +71,7 @@ namespace QiQiaoBan.Model
         }
 
         public const string StylePropertyName = "Style";
-        private string _style;
+        private string _style = "PolygonLock";
         [XmlIgnore]
         public string Style
         {
