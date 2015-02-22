@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QiQiaoBan.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,11 +23,15 @@ namespace QiQiaoBan
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public IViewModel ViewModel { get; set; }
+
         public MainPage()
         {
             this.InitializeComponent();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
+
+            ViewModel = this.DataContext as IViewModel;
         }
 
         /// <summary>
@@ -43,6 +48,13 @@ namespace QiQiaoBan
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
+            ViewModel.NavigateTo();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            ViewModel.NavigateFrom();
+            base.OnNavigatedFrom(e);
         }
     }
 }

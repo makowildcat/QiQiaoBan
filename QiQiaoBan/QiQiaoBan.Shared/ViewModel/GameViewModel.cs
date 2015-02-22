@@ -13,20 +13,12 @@ using Windows.UI.Xaml.Shapes;
 
 namespace QiQiaoBan.ViewModel
 {
-    class GameViewModel : ViewModelBase
+    class GameViewModel : ViewModelBase, IViewModel
     {
         public Puzzle Model
         {
             get;
             private set;
-        }
-
-        public string Name
-        {
-            get
-            {
-                return Model.Name;
-            }
         }
 
         public const string PiecesPropertyName = "Pieces";
@@ -52,6 +44,30 @@ namespace QiQiaoBan.ViewModel
         private int indexDivider;
         private int countMatched;
 
+        public string Name
+        {
+            get
+            {
+                return Model.Name;
+            }
+        }
+
+        public const string TimePropertyName = "Time";
+        private int _time;
+        public int Time
+        {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                Set(TimePropertyName, ref _time, value);
+            }
+        }
+        private DispatcherTimer dispatcherTime;
+        
+
         public GameViewModel(Puzzle model)
         {
             Model = model;
@@ -60,6 +76,8 @@ namespace QiQiaoBan.ViewModel
             ZIndex = 0;
             indexDivider = Pieces.Count;
             countMatched = 0;
+            Time = 0;
+            dispatcherTime = new DispatcherTimer();
 
             Random random = new Random();
             for (int i = 0; i < indexDivider; i++)
@@ -85,6 +103,17 @@ namespace QiQiaoBan.ViewModel
             PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(ExecutePolygonManipulationDelta);
             PolygonManipulationCompletedCommand = new RelayCommand<ManipulationCompletedRoutedEventArgs>(ExecutePolygonManipulationCompleted);
             PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
+        }
+
+        public void NavigateTo()
+        {
+            Debug.WriteLine("GameViewModel.NavigateTo");
+            Debug.WriteLine("> " + Name);
+        }
+
+        public void NavigateFrom()
+        {
+            Debug.WriteLine("GameViewModel.NavigateFrom");
         }
 
         public void ExecutePolygonManipulationStarted(ManipulationStartedRoutedEventArgs parameter)

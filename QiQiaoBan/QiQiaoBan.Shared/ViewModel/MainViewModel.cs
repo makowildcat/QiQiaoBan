@@ -20,21 +20,10 @@ using Windows.UI.Xaml;
 
 namespace QiQiaoBan.ViewModel
 {
-    class MainViewModel : ViewModelBase
+    class MainViewModel : ViewModelBase, IViewModel
     {
         private readonly IDataService _dataService;
         private readonly INavigationService _navigationService;
-
-        /*
-         * Constructor
-         */
-        public MainViewModel(IDataService dataService, INavigationService navigationService)
-        {
-            Title = "QiQiaoBan";
-            _dataService = dataService;
-            _navigationService = navigationService;
-            Puzzles = new ObservableCollection<GameViewModel>();
-        }
 
         private string _title;
         public string Title
@@ -93,6 +82,24 @@ namespace QiQiaoBan.ViewModel
                     _navigationService.Navigate(typeof(GamePage));
                 }
             }
+        }
+
+        public MainViewModel(IDataService dataService, INavigationService navigationService)
+        {
+            Title = "QiQiaoBan";
+            _dataService = dataService;
+            _navigationService = navigationService;
+            Puzzles = new ObservableCollection<GameViewModel>();
+        }
+
+        public void NavigateTo()
+        {
+            Debug.WriteLine("MainViewModel.NavigateTo");
+        }
+
+        public void NavigateFrom()
+        {
+            Debug.WriteLine("MainViewModel.NavigateFrom");
         }
     }
 }

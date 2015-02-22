@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QiQiaoBan.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -23,10 +24,15 @@ namespace QiQiaoBan
     /// </summary>
     public sealed partial class GamePage : Page
     {
+        public IViewModel ViewModel { get; set; }
+
         public GamePage()
         {
             this.InitializeComponent();
+
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+
+            ViewModel = this.DataContext as IViewModel;
         }
 
         void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
@@ -45,6 +51,13 @@ namespace QiQiaoBan
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            ViewModel.NavigateTo();
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            ViewModel.NavigateFrom();
+            base.OnNavigatedFrom(e);
         }
     }
 }

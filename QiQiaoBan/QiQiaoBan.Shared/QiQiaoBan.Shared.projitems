@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Design\DesignDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\IntToStringTimeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\StringToStyleConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\DataService.cs" />
@@ -28,6 +29,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Piece.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Puzzle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GameViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
