@@ -1,8 +1,6 @@
-﻿using QiQiaoBan.Common;
+﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Xml.Serialization;
 using Windows.Foundation;
@@ -10,10 +8,8 @@ using Windows.UI.Xaml.Media;
 
 namespace QiQiaoBan.Model
 {
-    public class Piece : IAutoSaveLoad, INotifyPropertyChanged
+    public class Piece : ObservableObject
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public const string LeftPropertyName = "Left";
         private double _left;
         [XmlAttribute]
@@ -25,7 +21,7 @@ namespace QiQiaoBan.Model
             }
             set
             {
-                _left = value; OnPropertyChanged();//Set(LeftPropertyName, ref _left, value);
+                Set(LeftPropertyName, ref _left, value);
             }            
         }
 
@@ -40,7 +36,7 @@ namespace QiQiaoBan.Model
             }
             set
             {
-                _top = value; OnPropertyChanged(); //Set(TopPropertyName, ref _top, value);
+                Set(TopPropertyName, ref _top, value);
             }
         }
 
@@ -55,7 +51,7 @@ namespace QiQiaoBan.Model
             }
             set
             {
-                _angle = value; OnPropertyChanged(); //Set(AnglePropertyName, ref _angle, value);
+                Set(AnglePropertyName, ref _angle, value);
             }
         }
         
@@ -70,7 +66,7 @@ namespace QiQiaoBan.Model
             }
             set
             {
-                _indexTag = value; OnPropertyChanged(); //Set(IndexTagPropertyName, ref _indexTag, value);
+                Set(IndexTagPropertyName, ref _indexTag, value);
             }
         }
 
@@ -85,7 +81,7 @@ namespace QiQiaoBan.Model
             }
             set
             {
-                _style = value; OnPropertyChanged(); //Set(StylePropertyName, ref _style, value);
+                Set(StylePropertyName, ref _style, value);
             }
         }
 
@@ -100,7 +96,7 @@ namespace QiQiaoBan.Model
             }
             set
             {
-                _zindex = value; OnPropertyChanged();//Set(ZIndexPropertyName, ref _zindex, value);
+                Set(ZIndexPropertyName, ref _zindex, value);
             }
         }
 
@@ -153,36 +149,6 @@ namespace QiQiaoBan.Model
         }
 
         public Piece() { }
-
-        /// <summary>Flattens an instance of the object to a string that can be saved to app state storage</summary>
-        /// <returns>Returns a flattened instance of the object that can be saved to app state storage</returns>
-        public string ToStringRepresentation()
-        {
-            return "" + Left + "|" + Top + "|" + Angle + "|" + IndexTag + "|" + Style + "|" + MatchWithIndex + "|" + Type;
-        }
-
-        /// <summary>Repopulates the object from a flattened string representation of its properties</summary>
-        /// <param name="sObject">A flat string representation of the object's properties</param>
-        /// <returns>Returns an instance of the object if its properties were successfully rehydrated from a flattened string representation</returns>
-        public object FromStringRepresentation(string sObject)
-        {
-            if (string.IsNullOrEmpty(sObject)) return null;
-            var split = sObject.Split('|');
-            Left = double.Parse(split[0]);
-            Top = double.Parse(split[1]);
-            Angle = double.Parse(split[2]);
-            IndexTag = int.Parse(split[3]);
-            Style = split[4];
-            MatchWithIndex = int.Parse(split[5]);
-            Type = split[6];            
-            return this;
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public static string SQUARE = "square";
         public static PointCollection square()
