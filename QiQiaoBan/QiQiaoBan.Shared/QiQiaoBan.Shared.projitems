@@ -15,7 +15,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AutoState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IAutoAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IAutoSaveLoad.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IocContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\IStateHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ItemsControlCanvas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\LocalStoreStateHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Logger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\NavigationHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
@@ -28,6 +37,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Piece.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Puzzle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\GameViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModel\IViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
   </ItemGroup>
