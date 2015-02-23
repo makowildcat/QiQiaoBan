@@ -112,16 +112,20 @@ namespace QiQiaoBan.ViewModel
                 countMatched = (int)e.PageState["countMatched"];
                 Time = (int)e.PageState["Time"];
                 indexDivider = (int)e.PageState["indexDivider"];
+
+                dispatcherTime.Start();
             }
             else
             {
                 Model = JsonConvert.DeserializeObject<Puzzle>(e.NavigationParameter.ToString());
                 Pieces = Model.Pieces;
-
+                indexDivider = Pieces.Count;
+                for (int i = 0; i < indexDivider; i++)
+                {
+                    Pieces.Add(new Piece());
+                }
                 initGame();
             }
-
-            dispatcherTime.Start();
         }
 
         private void dispatcherTimeTick(object sender, object e)
@@ -134,8 +138,7 @@ namespace QiQiaoBan.ViewModel
             ZIndex = 0;
             countMatched = 0;
             Time = 0;
-            indexDivider = Pieces.Count;
-
+            
             Random random = new Random();
             for (int i = 0; i < indexDivider; i++)
             {
@@ -144,18 +147,17 @@ namespace QiQiaoBan.ViewModel
                 Pieces[i].Style = "PolygonLock";
                 Pieces[i].MatchWithIndex = -1;
 
-                Pieces.Add(new Piece()
-                {
-                    ZIndex = ++ZIndex,
-                    Style = "PolygonNormal",
-                    IndexTag = i + indexDivider,
-                    Type = Pieces[i].Type,
-                    Left = random.Next(10, 300),
-                    Top = random.Next(10, 400),
-                    Angle = random.Next(0, 8) * 45,
-                    MatchWithIndex = -1
-                });
+                Pieces[i + indexDivider].ZIndex = ++ZIndex;
+                Pieces[i + indexDivider].Style = "PolygonNormal";
+                Pieces[i + indexDivider].IndexTag = i + indexDivider;
+                Pieces[i + indexDivider].Type = Pieces[i].Type;
+                Pieces[i + indexDivider].Left = random.Next(10, 300);
+                Pieces[i + indexDivider].Top = random.Next(10, 400);
+                Pieces[i + indexDivider].Angle = random.Next(0, 8) * 45;
+                Pieces[i + indexDivider].MatchWithIndex = -1;
             }
+
+            dispatcherTime.Start();
         }
 
         public void SaveState(SaveStateEventArgs e)
@@ -240,7 +242,7 @@ namespace QiQiaoBan.ViewModel
                     }
                     else
                     {
-                        Debug.WriteLine("Retry");
+                        initGame();
                     }
                 });
         }
