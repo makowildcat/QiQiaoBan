@@ -146,6 +146,7 @@ namespace QiQiaoBan.Model
                     return largeTriangle();
                 return null;
             }
+            private set { }
         }
 
         public Piece() { }

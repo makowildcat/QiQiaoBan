@@ -1,11 +1,16 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading.Tasks;
+using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -83,10 +88,10 @@ namespace QiQiaoBan.ViewModel
         public void NavigateTo(NavigationEventArgs e)
         {
             Debug.WriteLine("GameViewModel.NavigateTo");
-            
-            Model = e.Parameter as Puzzle;
+
+            Model = JsonConvert.DeserializeObject<Puzzle>(e.Parameter.ToString());
             Pieces = Model.Pieces;
-            
+
             ZIndex = 0;
             indexDivider = Pieces.Count;
             countMatched = 0;
@@ -117,7 +122,6 @@ namespace QiQiaoBan.ViewModel
         public void NavigateFrom(NavigationEventArgs e)
         {
             Debug.WriteLine("GameViewModel.NavigateFrom");
-            Pieces.RemoveRange(indexDivider, indexDivider);
         }
 
         public void ExecutePolygonManipulationStarted(ManipulationStartedRoutedEventArgs parameter)

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Newtonsoft.Json;
 using QiQiaoBan.Design;
 using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -62,7 +64,7 @@ namespace QiQiaoBan.ViewModel
                 Puzzles.Clear();
                 foreach (var puzzle in puzzles)
                 {
-                    Puzzles.Add(puzzle);//new GameViewModel());
+                    Puzzles.Add(puzzle);
                 }
             }
             Debug.WriteLine("GetPuzzles()");
@@ -80,8 +82,7 @@ namespace QiQiaoBan.ViewModel
             {
                 if (Set(SelectedPuzzlePropertyName, ref _selectedPuzzle, value) && value != null)
                 {
-                    Debug.WriteLine("SelectedPuzzle.Pieces.Count > " + _selectedPuzzle.Pieces.Count);
-                    _navigationService.Navigate(typeof(GamePage), value);
+                    _navigationService.Navigate(typeof(GamePage), JsonConvert.SerializeObject(value));                    
                 }
             }
         }
@@ -101,7 +102,7 @@ namespace QiQiaoBan.ViewModel
 
         public void NavigateFrom(NavigationEventArgs e)
         {
-            Debug.WriteLine("MainViewModel.NavigateFrom");
+            Debug.WriteLine("MainViewModel.NavigateFrom");            
         }
     }
 }
