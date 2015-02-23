@@ -1,4 +1,5 @@
-﻿using QiQiaoBan.ViewModel;
+﻿using QiQiaoBan.Common;
+using QiQiaoBan.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,6 +26,8 @@ namespace QiQiaoBan
     {
         public IViewModel ViewModel { get; set; }
 
+        private readonly NavigationHelper _navigationHelper;
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -32,6 +35,10 @@ namespace QiQiaoBan
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
             ViewModel = this.DataContext as IViewModel;
+
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelperLoadState;
+            _navigationHelper.SaveState += NavigationHelperSaveState;
         }
 
         /// <summary>
@@ -48,14 +55,23 @@ namespace QiQiaoBan
             // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
             // If you are using the NavigationHelper provided by some templates,
             // this event is handled for you.
-            ViewModel.NavigateTo(e);
+            _navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            ViewModel.NavigateFrom(e);
-
+            _navigationHelper.OnNavigatedFrom(e);
             base.OnNavigatedFrom(e);
+        }
+
+        public void NavigationHelperLoadState(object sender, LoadStateEventArgs e)
+        {
+            ViewModel.LoadState(e);
+        }
+
+        public void NavigationHelperSaveState(object sender, SaveStateEventArgs e)
+        {
+            ViewModel.SaveState(e);
         }
     }
 }

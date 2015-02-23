@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using QiQiaoBan.Common;
 using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
@@ -85,43 +86,61 @@ namespace QiQiaoBan.ViewModel
             PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
         }
 
-        public void NavigateTo(NavigationEventArgs e)
+        public void LoadState(LoadStateEventArgs e)
         {
-            Debug.WriteLine("GameViewModel.NavigateTo");
+            Debug.WriteLine("GameViewModel.LoadState");
 
-            Model = JsonConvert.DeserializeObject<Puzzle>(e.Parameter.ToString());
-            Pieces = Model.Pieces;
-
-            ZIndex = 0;
-            indexDivider = Pieces.Count;
-            countMatched = 0;
-            Time = 0;
-
-            Random random = new Random();
-            for (int i = 0; i < indexDivider; i++)
+            if (e.PageState != null && e.PageState.ContainsKey("Model"))
             {
-                Pieces[i].IndexTag = i;
-                Pieces[i].ZIndex = -2;
-                Pieces[i].Style = "PolygonLock";
-                Pieces[i].MatchWithIndex = -1;
+                Model = JsonConvert.DeserializeObject<Puzzle>(e.PageState["Model"].ToString());
+                Pieces = Model.Pieces;
 
-                Pieces.Add(new Piece()
+                ZIndex = (int)e.PageState["ZIndex"];
+                countMatched = (int)e.PageState["countMatched"];
+                Time = (int)e.PageState["Time"];
+                indexDivider = (int)e.PageState["indexDivider"];
+            }
+            else
+            {
+                Model = JsonConvert.DeserializeObject<Puzzle>(e.NavigationParameter.ToString());
+                Pieces = Model.Pieces;
+
+                ZIndex = 0;
+                countMatched = 0;
+                Time = 0;
+                indexDivider = Pieces.Count;
+
+                Random random = new Random();
+                for (int i = 0; i < indexDivider; i++)
                 {
-                    ZIndex = ++ZIndex,
-                    Style = "PolygonNormal",
-                    IndexTag = i + indexDivider,
-                    Type = Pieces[i].Type,
-                    Left = random.Next(10, 300),
-                    Top = random.Next(10, 400),
-                    Angle = random.Next(0, 8) * 45,
-                    MatchWithIndex = -1
-                });
+                    Pieces[i].IndexTag = i;
+                    Pieces[i].ZIndex = -2;
+                    Pieces[i].Style = "PolygonLock";
+                    Pieces[i].MatchWithIndex = -1;
+
+                    Pieces.Add(new Piece()
+                    {
+                        ZIndex = ++ZIndex,
+                        Style = "PolygonNormal",
+                        IndexTag = i + indexDivider,
+                        Type = Pieces[i].Type,
+                        Left = random.Next(10, 300),
+                        Top = random.Next(10, 400),
+                        Angle = random.Next(0, 8) * 45,
+                        MatchWithIndex = -1
+                    });
+                }
             }
         }
 
-        public void NavigateFrom(NavigationEventArgs e)
+        public void SaveState(SaveStateEventArgs e)
         {
-            Debug.WriteLine("GameViewModel.NavigateFrom");
+            Debug.WriteLine("GameViewModel.SaveState");
+            e.PageState["Model"] = JsonConvert.SerializeObject(Model);
+            e.PageState["ZIndex"] = ZIndex;
+            e.PageState["countMatched"] = countMatched;
+            e.PageState["Time"] = Time;
+            e.PageState["indexDivider"] = indexDivider;
         }
 
         public void ExecutePolygonManipulationStarted(ManipulationStartedRoutedEventArgs parameter)

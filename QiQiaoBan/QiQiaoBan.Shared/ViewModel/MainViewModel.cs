@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Newtonsoft.Json;
+using QiQiaoBan.Common;
 using QiQiaoBan.Design;
 using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
@@ -72,8 +73,9 @@ namespace QiQiaoBan.ViewModel
             Puzzles = new ObservableCollection<Puzzle>();
         }
 
-        public async void NavigateTo(NavigationEventArgs e)
+        public async void LoadState(LoadStateEventArgs e)
         {
+            Debug.WriteLine("MainViewModel.LoadState");
             var puzzles = await _dataService.GetPuzzlesLocal();
             if (puzzles != null)
             {
@@ -82,13 +84,12 @@ namespace QiQiaoBan.ViewModel
                 {
                     Puzzles.Add(puzzle);
                 }
-            }
-            Debug.WriteLine("MainViewModel.NavigateTo");
+            }            
         }
 
-        public void NavigateFrom(NavigationEventArgs e)
+        public void SaveState(SaveStateEventArgs e)
         {
-            Debug.WriteLine("MainViewModel.NavigateFrom");
+            Debug.WriteLine("MainViewModel.SaveState");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using QiQiaoBan.ViewModel;
+﻿using QiQiaoBan.Common;
+using QiQiaoBan.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,8 @@ namespace QiQiaoBan
     {
         public IViewModel ViewModel { get; set; }
 
+        private readonly NavigationHelper _navigationHelper;
+
         public GamePage()
         {
             this.InitializeComponent();
@@ -33,6 +36,10 @@ namespace QiQiaoBan
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
             ViewModel = this.DataContext as IViewModel;
+
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelperLoadState;
+            _navigationHelper.SaveState += NavigationHelperSaveState;
         }
 
         void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
@@ -51,13 +58,24 @@ namespace QiQiaoBan
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.NavigateTo(e);
+            _navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            ViewModel.NavigateFrom(e);
+            _navigationHelper.OnNavigatedFrom(e);
             base.OnNavigatedFrom(e);
         }
+
+        public void NavigationHelperLoadState(object sender, LoadStateEventArgs e)
+        {
+            ViewModel.LoadState(e);
+        }
+
+        public void NavigationHelperSaveState(object sender, SaveStateEventArgs e)
+        {
+            ViewModel.SaveState(e);
+        }
+
     }
 }
