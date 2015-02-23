@@ -82,6 +82,8 @@ namespace QiQiaoBan.ViewModel
                 Puzzles.Clear();
                 foreach (var puzzle in puzzles)
                 {
+                    var localSettings = ApplicationData.Current.LocalSettings;
+                    puzzle.BestTime = localSettings.Values.ContainsKey(puzzle.Name) ? (int)localSettings.Values[puzzle.Name] : 0;
                     Puzzles.Add(puzzle);
                 }
             }            

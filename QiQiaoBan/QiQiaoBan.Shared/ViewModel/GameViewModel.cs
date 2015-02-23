@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
 using QiQiaoBan.Common;
+using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
@@ -81,7 +82,6 @@ namespace QiQiaoBan.ViewModel
         }
         private DispatcherTimer dispatcherTime;
         
-
         public GameViewModel(QiQiaoBan.Helpers.INavigationService navigationService, IDialogService dialogService)
         {
             Debug.WriteLine("GameViewModel.constructor");
@@ -112,7 +112,6 @@ namespace QiQiaoBan.ViewModel
                 countMatched = (int)e.PageState["countMatched"];
                 Time = (int)e.PageState["Time"];
                 indexDivider = (int)e.PageState["indexDivider"];
-
                 dispatcherTime.Start();
             }
             else
@@ -124,6 +123,7 @@ namespace QiQiaoBan.ViewModel
                 {
                     Pieces.Add(new Piece());
                 }
+
                 initGame();
             }
         }
@@ -234,7 +234,17 @@ namespace QiQiaoBan.ViewModel
         {
             Debug.WriteLine("You win!!");
             dispatcherTime.Stop();
-            _dialogService.ShowMessage("Best time 00:17\nCurrent time " + Time, "Puzzle Completed", "Menu", "Retry", (menu) =>
+            if (Time < Model.BestTime || Model.BestTime == 0)
+            {
+                Model.BestTime = Time;
+                ApplicationData.Current.LocalSettings.Values[Name] = Time;
+            }
+            _dialogService.ShowMessage(
+                "Best time " + HelpConvert.intToStringTime(Model.BestTime) + "\nCurrent time " + HelpConvert.intToStringTime(Time), 
+                "Puzzle Completed", 
+                "Menu", 
+                "Retry", 
+                (menu) =>
                 {
                     if (menu)
                     {

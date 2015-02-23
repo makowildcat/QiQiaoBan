@@ -9,8 +9,7 @@ namespace QiQiaoBan.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            int n = (int)value;
-            return (n / 60).ToString("00") + ":" + (n % 60).ToString("00");
+            return HelpConvert.intToStringTime((int)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

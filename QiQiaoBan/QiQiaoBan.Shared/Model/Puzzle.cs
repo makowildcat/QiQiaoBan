@@ -22,6 +22,20 @@ namespace QiQiaoBan.Model
             }
         }
 
+        public const string BestTimePropertyName = "BestTime";
+        private int _bestTime;
+        public int BestTime
+        {
+            get
+            {
+                return _bestTime;
+            }
+            set
+            {
+                Set(BestTimePropertyName, ref _bestTime, value);
+            }
+        }
+
         public const string PiecesPropertyName = "Pieces";
         private List<Piece> _pieces;
         public List<Piece> Pieces
