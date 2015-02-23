@@ -27,6 +27,7 @@ namespace QiQiaoBan.ViewModel
         private const int TIME_INTERVAL_SECOND = 1;
 
         private IDialogService _dialogService = null;
+        private QiQiaoBan.Helpers.INavigationService _navigationService = null;
 
         public Puzzle Model
         {
@@ -81,11 +82,13 @@ namespace QiQiaoBan.ViewModel
         private DispatcherTimer dispatcherTime;
         
 
-        public GameViewModel(IDialogService dialogService)
+        public GameViewModel(QiQiaoBan.Helpers.INavigationService navigationService, IDialogService dialogService)
         {
-            _dialogService = dialogService;
-
             Debug.WriteLine("GameViewModel.constructor");
+
+            _dialogService = dialogService;
+            _navigationService = navigationService;
+
             dispatcherTime = new DispatcherTimer();
             dispatcherTime.Interval = TimeSpan.FromSeconds(TIME_INTERVAL_SECOND);
             dispatcherTime.Tick += dispatcherTimeTick;
@@ -229,15 +232,15 @@ namespace QiQiaoBan.ViewModel
         {
             Debug.WriteLine("You win!!");
             dispatcherTime.Stop();
-            _dialogService.ShowMessage("Best time", "Puzzle Completed", "Retry", "Menu", (ok) =>
+            _dialogService.ShowMessage("Best time 00:17\nCurrent time " + Time, "Puzzle Completed", "Menu", "Retry", (menu) =>
                 {
-                    if (ok)
+                    if (menu)
                     {
-                        Debug.WriteLine("Retry");
+                        _navigationService.GoBack();
                     }
                     else
                     {
-                        Debug.WriteLine("Menu");
+                        Debug.WriteLine("Retry");
                     }
                 });
         }
