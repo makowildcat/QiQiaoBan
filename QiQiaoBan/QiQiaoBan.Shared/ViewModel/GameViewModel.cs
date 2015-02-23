@@ -28,7 +28,7 @@ namespace QiQiaoBan.ViewModel
         private const int TIME_INTERVAL_SECOND = 1;
 
         private IDialogService _dialogService = null;
-        private QiQiaoBan.Helpers.INavigationService _navigationService = null;
+        private GalaSoft.MvvmLight.Views.INavigationService _navigationService = null;
 
         public Puzzle Model
         {
@@ -82,7 +82,7 @@ namespace QiQiaoBan.ViewModel
         }
         private DispatcherTimer dispatcherTime;
         
-        public GameViewModel(QiQiaoBan.Helpers.INavigationService navigationService, IDialogService dialogService)
+        public GameViewModel(GalaSoft.MvvmLight.Views.INavigationService navigationService, IDialogService dialogService)
         {
             Debug.WriteLine("GameViewModel.constructor");
 

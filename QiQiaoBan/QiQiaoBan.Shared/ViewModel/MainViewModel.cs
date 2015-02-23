@@ -1,9 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
 using QiQiaoBan.Common;
 using QiQiaoBan.Design;
-using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
@@ -60,7 +60,7 @@ namespace QiQiaoBan.ViewModel
             {
                 if (Set(SelectedPuzzlePropertyName, ref _selectedPuzzle, value) && value != null)
                 {
-                    _navigationService.Navigate(typeof(GamePage), JsonConvert.SerializeObject(value));                    
+                    _navigationService.NavigateTo(ViewModelLocator.GAME_PAGEKEY, JsonConvert.SerializeObject(value));                    
                 }
             }
         }

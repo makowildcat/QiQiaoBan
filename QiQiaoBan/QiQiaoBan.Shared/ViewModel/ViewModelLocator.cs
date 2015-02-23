@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
-using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
 using System;
 using System.Collections.Generic;
@@ -12,6 +11,8 @@ namespace QiQiaoBan.ViewModel
 {
     class ViewModelLocator
     {
+        public const string GAME_PAGEKEY = "GamePage";
+
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
@@ -23,7 +24,12 @@ namespace QiQiaoBan.ViewModel
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
-                SimpleIoc.Default.Register<QiQiaoBan.Helpers.INavigationService>(() => new QiQiaoBan.Helpers.NavigationService());
+                SimpleIoc.Default.Register<INavigationService>(() =>
+                    {
+                        var navigationService = new NavigationService();
+                        navigationService.Configure(GAME_PAGEKEY, typeof(GamePage));
+                        return navigationService;
+                    });
 
                 SimpleIoc.Default.Register<IDialogService>(() =>
                 {

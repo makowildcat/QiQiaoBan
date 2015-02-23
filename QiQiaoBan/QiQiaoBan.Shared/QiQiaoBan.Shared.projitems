@@ -21,9 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Design\DesignDataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\HelpConvert.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IntToStringTimeConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\StringToStyleConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\DataService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\IDataService.cs" />
