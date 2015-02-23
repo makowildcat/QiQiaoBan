@@ -14,11 +14,13 @@
 
     <Page.Resources>
         <help:StringToStyleConverter x:Key="StringToStyleConverter"/>
+        <help:IntToStringTimeConverter x:Key="IntToStringTimeConverter"/>
     </Page.Resources>
 
     <Grid>              
         <StackPanel>
             <TextBlock Text="{Binding Name, Mode=OneTime}"/>
+            <TextBlock Text="{Binding Time, Mode=OneWay, Converter={StaticResource IntToStringTimeConverter}}"/>
             
             <common:ItemsControlCanvas x:Name="itemsControlPieces" ItemsSource="{Binding Pieces}">
                 <common:ItemsControlCanvas.ItemsPanel>

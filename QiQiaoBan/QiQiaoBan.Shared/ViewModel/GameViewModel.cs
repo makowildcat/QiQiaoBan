@@ -22,6 +22,9 @@ namespace QiQiaoBan.ViewModel
 {
     class GameViewModel : ViewModelBase, IViewModel
     {
+        private const double DELTA_MARGIN = 20.0;
+        private const int TIME_INTERVAL_SECOND = 1;
+
         public Puzzle Model
         {
             get;
@@ -79,6 +82,8 @@ namespace QiQiaoBan.ViewModel
         {
             Debug.WriteLine("GameViewModel.constructor");
             dispatcherTime = new DispatcherTimer();
+            dispatcherTime.Interval = TimeSpan.FromSeconds(TIME_INTERVAL_SECOND);
+            dispatcherTime.Tick += dispatcherTimeTick;
 
             PolygonManipulationStartedCommand = new RelayCommand<ManipulationStartedRoutedEventArgs>(ExecutePolygonManipulationStarted);
             PolygonManipulationDeltaCommand = new RelayCommand<ManipulationDeltaRoutedEventArgs>(ExecutePolygonManipulationDelta);
@@ -105,31 +110,43 @@ namespace QiQiaoBan.ViewModel
                 Model = JsonConvert.DeserializeObject<Puzzle>(e.NavigationParameter.ToString());
                 Pieces = Model.Pieces;
 
-                ZIndex = 0;
-                countMatched = 0;
-                Time = 0;
-                indexDivider = Pieces.Count;
+                initGame();
+            }
 
-                Random random = new Random();
-                for (int i = 0; i < indexDivider; i++)
+            dispatcherTime.Start();
+        }
+
+        private void dispatcherTimeTick(object sender, object e)
+        {
+            Time++;            
+        }
+
+        private void initGame()
+        {
+            ZIndex = 0;
+            countMatched = 0;
+            Time = 0;
+            indexDivider = Pieces.Count;
+
+            Random random = new Random();
+            for (int i = 0; i < indexDivider; i++)
+            {
+                Pieces[i].IndexTag = i;
+                Pieces[i].ZIndex = -2;
+                Pieces[i].Style = "PolygonLock";
+                Pieces[i].MatchWithIndex = -1;
+
+                Pieces.Add(new Piece()
                 {
-                    Pieces[i].IndexTag = i;
-                    Pieces[i].ZIndex = -2;
-                    Pieces[i].Style = "PolygonLock";
-                    Pieces[i].MatchWithIndex = -1;
-
-                    Pieces.Add(new Piece()
-                    {
-                        ZIndex = ++ZIndex,
-                        Style = "PolygonNormal",
-                        IndexTag = i + indexDivider,
-                        Type = Pieces[i].Type,
-                        Left = random.Next(10, 300),
-                        Top = random.Next(10, 400),
-                        Angle = random.Next(0, 8) * 45,
-                        MatchWithIndex = -1
-                    });
-                }
+                    ZIndex = ++ZIndex,
+                    Style = "PolygonNormal",
+                    IndexTag = i + indexDivider,
+                    Type = Pieces[i].Type,
+                    Left = random.Next(10, 300),
+                    Top = random.Next(10, 400),
+                    Angle = random.Next(0, 8) * 45,
+                    MatchWithIndex = -1
+                });
             }
         }
 
@@ -200,7 +217,13 @@ namespace QiQiaoBan.ViewModel
             }
 
             if (countMatched == indexDivider)
-                Debug.WriteLine("You win!!");
+                finishGame();
+        }
+
+        private void finishGame()
+        {
+            Debug.WriteLine("You win!!");
+            dispatcherTime.Stop();
         }
 
         private double Rotate(double currentAngle)
@@ -247,7 +270,7 @@ namespace QiQiaoBan.ViewModel
             if (!isSameAngle(p1, p2))
                 return false;
 
-            if (!isSameCoord(p1, p2, 20.0))
+            if (!isSameCoord(p1, p2, DELTA_MARGIN))
                 return false;
 
             return true;
