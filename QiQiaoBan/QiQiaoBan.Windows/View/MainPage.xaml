@@ -5,10 +5,25 @@
     xmlns:local="using:QiQiaoBan"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:help="using:QiQiaoBan.Helpers"
     mc:Ignorable="d" DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
 
+    <Page.Resources>
+        <help:IntToStringTimeConverter x:Key="IntToStringTimeConverter"/>
+        <DataTemplate x:Key="DataTemplateListPuzzle">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Name}" Margin="0, 0, 16, 0"/>
+                <TextBlock Text="{Binding BestTime, Converter={StaticResource IntToStringTimeConverter}}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    	<TextBlock Text="{Binding Title, Mode=OneWay}" Margin="50,27,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
+        <StackPanel>
+    	    <TextBlock Text="{Binding Title, Mode=OneWay}" Margin="50,27,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <ListBox ItemsSource="{Binding Puzzles}" 
+                     SelectedItem="{Binding SelectedPuzzle, Mode=TwoWay}"
+                     ItemTemplate="{StaticResource DataTemplateListPuzzle}"/>
+        </StackPanel>
     </Grid>
 </Page>

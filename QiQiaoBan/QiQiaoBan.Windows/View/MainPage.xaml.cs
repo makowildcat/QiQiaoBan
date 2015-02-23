@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QiQiaoBan.Common;
+using QiQiaoBan.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +24,40 @@ namespace QiQiaoBan
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public IViewModel ViewModel { get; set; }
+
+        private readonly NavigationHelper _navigationHelper;
+
         public MainPage()
         {
             this.InitializeComponent();
+
+            ViewModel = this.DataContext as IViewModel;
+
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelperLoadState;
+            _navigationHelper.SaveState += NavigationHelperSaveState;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _navigationHelper.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _navigationHelper.OnNavigatedFrom(e);
+            base.OnNavigatedFrom(e);
+        }
+
+        public void NavigationHelperLoadState(object sender, LoadStateEventArgs e)
+        {
+            ViewModel.LoadState(e);
+        }
+
+        public void NavigationHelperSaveState(object sender, SaveStateEventArgs e)
+        {
+            ViewModel.SaveState(e);
         }
     }
 }
