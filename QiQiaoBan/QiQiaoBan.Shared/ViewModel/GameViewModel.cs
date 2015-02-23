@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
 using Newtonsoft.Json;
 using QiQiaoBan.Common;
 using QiQiaoBan.Model;
@@ -24,6 +25,8 @@ namespace QiQiaoBan.ViewModel
     {
         private const double DELTA_MARGIN = 20.0;
         private const int TIME_INTERVAL_SECOND = 1;
+
+        private IDialogService _dialogService = null;
 
         public Puzzle Model
         {
@@ -78,8 +81,10 @@ namespace QiQiaoBan.ViewModel
         private DispatcherTimer dispatcherTime;
         
 
-        public GameViewModel()
+        public GameViewModel(IDialogService dialogService)
         {
+            _dialogService = dialogService;
+
             Debug.WriteLine("GameViewModel.constructor");
             dispatcherTime = new DispatcherTimer();
             dispatcherTime.Interval = TimeSpan.FromSeconds(TIME_INTERVAL_SECOND);
@@ -224,6 +229,17 @@ namespace QiQiaoBan.ViewModel
         {
             Debug.WriteLine("You win!!");
             dispatcherTime.Stop();
+            _dialogService.ShowMessage("Best time", "Puzzle Completed", "Retry", "Menu", (ok) =>
+                {
+                    if (ok)
+                    {
+                        Debug.WriteLine("Retry");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("Menu");
+                    }
+                });
         }
 
         private double Rotate(double currentAngle)

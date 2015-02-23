@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using QiQiaoBan.Helpers;
 using QiQiaoBan.Model;
@@ -22,7 +23,12 @@ namespace QiQiaoBan.ViewModel
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
-                SimpleIoc.Default.Register<INavigationService>(() => new NavigationService());
+                SimpleIoc.Default.Register<QiQiaoBan.Helpers.INavigationService>(() => new QiQiaoBan.Helpers.NavigationService());
+
+                SimpleIoc.Default.Register<IDialogService>(() =>
+                {
+                    return new DialogService();
+                });
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
