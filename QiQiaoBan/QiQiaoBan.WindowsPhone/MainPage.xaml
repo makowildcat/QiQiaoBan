@@ -11,8 +11,7 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="{Binding Title, Mode=OneWay}"/>
-            <Button Content="Refresh" Command="{Binding ButtonRefreshCommand}" />
-
+            
             <ListBox ItemsSource="{Binding Puzzles}" SelectedItem="{Binding SelectedPuzzle, Mode=TwoWay}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

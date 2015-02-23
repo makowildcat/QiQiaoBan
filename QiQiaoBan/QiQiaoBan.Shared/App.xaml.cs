@@ -67,7 +67,7 @@ namespace QiQiaoBan
                 QiQiaoBan.Common.SuspensionManager.RegisterFrame(rootFrame, "appFrame");
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
+                rootFrame.CacheSize = 2;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

@@ -47,29 +47,6 @@ namespace QiQiaoBan.ViewModel
             private set;
         }
 
-        private RelayCommand _buttonRefreshCommand;
-        public RelayCommand ButtonRefreshCommand
-        {
-            get
-            {
-                return _buttonRefreshCommand ?? (_buttonRefreshCommand = new RelayCommand(GetPuzzles));
-            }
-        }
-
-        private async void GetPuzzles()
-        {
-            var puzzles = await _dataService.GetPuzzlesLocal();
-            if (puzzles != null)
-            {
-                Puzzles.Clear();
-                foreach (var puzzle in puzzles)
-                {
-                    Puzzles.Add(puzzle);
-                }
-            }
-            Debug.WriteLine("GetPuzzles()");
-        }
-
         public const string SelectedPuzzlePropertyName = "SelectedPuzzle";
         private Puzzle _selectedPuzzle;
         public Puzzle SelectedPuzzle
@@ -95,14 +72,23 @@ namespace QiQiaoBan.ViewModel
             Puzzles = new ObservableCollection<Puzzle>();
         }
 
-        public void NavigateTo(NavigationEventArgs e)
+        public async void NavigateTo(NavigationEventArgs e)
         {
+            var puzzles = await _dataService.GetPuzzlesLocal();
+            if (puzzles != null)
+            {
+                Puzzles.Clear();
+                foreach (var puzzle in puzzles)
+                {
+                    Puzzles.Add(puzzle);
+                }
+            }
             Debug.WriteLine("MainViewModel.NavigateTo");
         }
 
         public void NavigateFrom(NavigationEventArgs e)
         {
-            Debug.WriteLine("MainViewModel.NavigateFrom");            
+            Debug.WriteLine("MainViewModel.NavigateFrom");
         }
     }
 }
