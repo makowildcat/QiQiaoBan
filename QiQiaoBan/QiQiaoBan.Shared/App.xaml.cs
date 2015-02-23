@@ -72,7 +72,7 @@ namespace QiQiaoBan
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     // TODO: Load state from previously suspended application
-                    await QiQiaoBan.Common.SuspensionManager.RestoreAsync();
+                    //await QiQiaoBan.Common.SuspensionManager.RestoreAsync();
                 }
 
                 // Place the frame in the current Window
@@ -137,7 +137,7 @@ namespace QiQiaoBan
             var deferral = e.SuspendingOperation.GetDeferral();
 
             // TODO: Save application state and stop any background activity
-            await QiQiaoBan.Common.SuspensionManager.SaveAsync();
+            //await QiQiaoBan.Common.SuspensionManager.SaveAsync();
             deferral.Complete();
         }
     }
