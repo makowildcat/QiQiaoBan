@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace QiQiaoBan.ViewModel
 {
-    class MainViewModel : ViewModelBase, IViewModel
+    public class MainViewModel : ViewModelBase, IViewModel
     {
         private readonly IDataService _dataService;
         private readonly INavigationService _navigationService;
@@ -70,7 +70,16 @@ namespace QiQiaoBan.ViewModel
             Title = "QiQiaoBan";
             _dataService = dataService;
             _navigationService = navigationService;
-            Puzzles = new ObservableCollection<Puzzle>();
+            
+            if (IsInDesignMode)
+                DesignLoadPuzzles();
+            else
+                Puzzles = new ObservableCollection<Puzzle>();
+        }
+
+        private async void DesignLoadPuzzles()
+        {
+            Puzzles = new ObservableCollection<Puzzle>(await _dataService.GetPuzzlesLocal());
         }
 
         public async void LoadState(LoadStateEventArgs e)
@@ -86,7 +95,7 @@ namespace QiQiaoBan.ViewModel
                     puzzle.BestTime = localSettings.Values.ContainsKey(puzzle.Name) ? (int)localSettings.Values[puzzle.Name] : 0;
                     Puzzles.Add(puzzle);
                 }
-            }            
+            }
         }
 
         public void SaveState(SaveStateEventArgs e)

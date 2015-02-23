@@ -12,9 +12,10 @@ namespace QiQiaoBan.Design
         {
             var result = new List<Puzzle>();
 
-            result.Add(new Puzzle() { Name = "Coucou" });
-            result.Add(new Puzzle() { Name = "Hello" });
-            result.Add(new Puzzle() { Name = "Ni Hao" });
+            result.Add(new Puzzle() { Name = "Coucou", BestTime = 17 });
+            result.Add(new Puzzle() { Name = "Hello", BestTime = 84 });
+            result.Add(new Puzzle() { Name = "Ni Hao", BestTime = 5 });
+            result.Add(new Puzzle() { Name = "Hallo", BestTime = 148 });
 
             return result;
         }

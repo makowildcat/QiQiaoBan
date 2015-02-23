@@ -20,6 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Design\DesignDataService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Design\DesignDialogService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Design\DesignNavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\HelpConvert.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\IntToStringTimeConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\StringToStyleConverter.cs" />

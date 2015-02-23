@@ -22,7 +22,7 @@ using Windows.UI.Xaml.Shapes;
 
 namespace QiQiaoBan.ViewModel
 {
-    class GameViewModel : ViewModelBase, IViewModel
+    public class GameViewModel : ViewModelBase, IViewModel
     {
         private const double DELTA_MARGIN = 20.0;
         private const int TIME_INTERVAL_SECOND = 1;

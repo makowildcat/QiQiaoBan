@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using QiQiaoBan.Model;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace QiQiaoBan.ViewModel
 {
-    class ViewModelLocator
+    public class ViewModelLocator
     {
         public const string GAME_PAGEKEY = "GamePage";
 
@@ -19,11 +20,19 @@ namespace QiQiaoBan.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();    
+                DispatcherHelper.Initialize();
+
+                SimpleIoc.Default.Register<IDataService>(() => new Design.DesignDataService());
+
+                SimpleIoc.Default.Register<INavigationService>(() => new Design.DesignNavigationService());
+
+                SimpleIoc.Default.Register<IDialogService>(() => new Design.DesignDialogService());
             }
+
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
+
                 SimpleIoc.Default.Register<INavigationService>(() =>
                     {
                         var navigationService = new NavigationService();
@@ -45,7 +54,7 @@ namespace QiQiaoBan.ViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
+                return SimpleIoc.Default.GetInstance<MainViewModel>();
             }
         }
 
@@ -53,7 +62,7 @@ namespace QiQiaoBan.ViewModel
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<GameViewModel>();
+                return SimpleIoc.Default.GetInstance<GameViewModel>();
             }
         }
     }
