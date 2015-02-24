@@ -1,4 +1,5 @@
 ﻿using QiQiaoBan.Common;
+using QiQiaoBan.View;
 using QiQiaoBan.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,43 +18,13 @@ using Windows.UI.Xaml.Navigation;
 
 namespace QiQiaoBan
 {
-    public sealed partial class GamePage : Page
+    public sealed partial class GamePage : CustomPage
     {
-        public IViewModel ViewModel { get; set; }
-
-        private readonly NavigationHelper _navigationHelper;
-
         public GamePage()
         {
             this.InitializeComponent();
 
             ViewModel = this.DataContext as IViewModel;
-
-            _navigationHelper = new NavigationHelper(this);
-            _navigationHelper.LoadState += NavigationHelperLoadState;
-            _navigationHelper.SaveState += NavigationHelperSaveState;
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            _navigationHelper.OnNavigatedTo(e);
-        }
-
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            _navigationHelper.OnNavigatedFrom(e);
-            base.OnNavigatedFrom(e);
-        }
-
-        public void NavigationHelperLoadState(object sender, LoadStateEventArgs e)
-        {
-            ViewModel.LoadState(e);
-        }
-
-        public void NavigationHelperSaveState(object sender, SaveStateEventArgs e)
-        {
-            ViewModel.SaveState(e);
-        }
-
     }
 }

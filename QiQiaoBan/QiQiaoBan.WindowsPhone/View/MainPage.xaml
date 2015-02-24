@@ -1,4 +1,4 @@
-﻿<Page
+﻿<view:CustomPage
     x:Class="QiQiaoBan.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:help="using:QiQiaoBan.Helpers"
+    xmlns:view="using:QiQiaoBan.View"
     mc:Ignorable="d"
     DataContext="{Binding Source={StaticResource Locator}, Mode=OneWay, Path=Main}"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
+    <view:CustomPage.Resources>
         <help:IntToStringTimeConverter x:Key="IntToStringTimeConverter"/>
         <DataTemplate x:Key="DataTemplateListPuzzle">
             <StackPanel Orientation="Horizontal">
@@ -18,7 +19,7 @@
                 <TextBlock Text="{Binding BestTime, Converter={StaticResource IntToStringTimeConverter}}"/>
             </StackPanel>
         </DataTemplate>
-    </Page.Resources>
+    </view:CustomPage.Resources>
 
     <Grid>
         <StackPanel>
@@ -28,4 +29,4 @@
                      ItemTemplate="{StaticResource DataTemplateListPuzzle}"/>                
         </StackPanel>
     </Grid>
-</Page>
+</view:CustomPage>

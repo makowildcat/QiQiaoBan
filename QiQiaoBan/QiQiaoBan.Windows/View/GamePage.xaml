@@ -1,4 +1,4 @@
-﻿<Page
+﻿<view:CustomPage
     x:Class="QiQiaoBan.GamePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,13 +9,14 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:common="using:QiQiaoBan.Common"
+    xmlns:view="using:QiQiaoBan.View"
     mc:Ignorable="d"
     DataContext="{Binding Game, Source={StaticResource Locator}}">
 
-    <Page.Resources>
+    <view:CustomPage.Resources>
         <help:StringToStyleConverter x:Key="StringToStyleConverter"/>
         <help:IntToStringTimeConverter x:Key="IntToStringTimeConverter"/>
-    </Page.Resources>
+    </view:CustomPage.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
@@ -60,4 +61,4 @@
             </common:ItemsControlCanvas>
         </StackPanel>
     </Grid>
-</Page>
+</view:CustomPage>
