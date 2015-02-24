@@ -14,10 +14,14 @@ namespace QiQiaoBan.ViewModel
     {
         public const string GAME_PAGEKEY = "GamePage";
 
+        /// <summary>
+        /// Initializes a instance of all locators
+        /// </summary>
         static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            // Registering for Design Mode
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 DispatcherHelper.Initialize();
@@ -28,7 +32,7 @@ namespace QiQiaoBan.ViewModel
 
                 SimpleIoc.Default.Register<IDialogService>(() => new Design.DesignDialogService());
             }
-
+            // Registering for Execution Mode
             else
             {
                 SimpleIoc.Default.Register<IDataService, DataService>();
@@ -46,6 +50,7 @@ namespace QiQiaoBan.ViewModel
                 });
             }
 
+            // ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<GameViewModel>();
         }

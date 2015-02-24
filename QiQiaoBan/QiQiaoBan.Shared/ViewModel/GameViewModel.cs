@@ -82,6 +82,11 @@ namespace QiQiaoBan.ViewModel
         }
         private DispatcherTimer dispatcherTime;
         
+        /// <summary>
+        /// Initializes a new instance of the GameViewModel class
+        /// </summary>
+        /// <param name="navigationService"></param>
+        /// <param name="dialogService"></param>
         public GameViewModel(GalaSoft.MvvmLight.Views.INavigationService navigationService, IDialogService dialogService)
         {
             Debug.WriteLine("GameViewModel.constructor");
@@ -99,6 +104,12 @@ namespace QiQiaoBan.ViewModel
             PolygonTappedCommand = new RelayCommand<TappedRoutedEventArgs>(ExecutePolygonTapped);
         }
 
+        /// <summary>
+        /// LoadState invoked when binded Page is about to displayed
+        /// Thanks to Common.NavigationHelper we can get the Puzzle 
+        /// from NavigationParameter or PageState (in case of Tombstoned)
+        /// </summary>
+        /// <param name="e"></param>
         public void LoadState(LoadStateEventArgs e)
         {
             Debug.WriteLine("GameViewModel.LoadState");
@@ -160,6 +171,10 @@ namespace QiQiaoBan.ViewModel
             dispatcherTime.Start();
         }
 
+        /// <summary>
+        /// LoadState invoked when Tombstoned
+        /// </summary>
+        /// <param name="e"></param>
         public void SaveState(SaveStateEventArgs e)
         {
             Debug.WriteLine("GameViewModel.SaveState");
@@ -170,15 +185,24 @@ namespace QiQiaoBan.ViewModel
             e.PageState["indexDivider"] = indexDivider;
         }
 
+        /*
+         * (Polygon) Piece's manipulation (Started, Delta, Completed & Tapped)
+         */
+        /// <summary>
+        /// Executed when a piece starts to move
+        /// </summary>
+        /// <param name="parameter"></param>
         public void ExecutePolygonManipulationStarted(ManipulationStartedRoutedEventArgs parameter)
         {
+            // !Trick: Get index from Tag property
             var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
             if (index < indexDivider)
                 return;
+            var piece = Pieces[index];
 
-            Pieces[index].ZIndex = ++ZIndex;
-            if (Pieces[index].MatchWithIndex >= 0)
-                UnMatch(Pieces[index]);
+            piece.ZIndex = ++ZIndex;
+            if (piece.MatchWithIndex >= 0)
+                UnMatch(piece);
         }
 
         public void ExecutePolygonManipulationDelta(ManipulationDeltaRoutedEventArgs parameter)
@@ -186,9 +210,10 @@ namespace QiQiaoBan.ViewModel
             var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
             if (index < indexDivider)
                 return;
+            var piece = Pieces[index];
 
-            Pieces[index].Left += parameter.Delta.Translation.X;
-            Pieces[index].Top += parameter.Delta.Translation.Y;
+            piece.Left += parameter.Delta.Translation.X;
+            piece.Top += parameter.Delta.Translation.Y;
         }
 
         public void ExecutePolygonManipulationCompleted(ManipulationCompletedRoutedEventArgs parameter)
@@ -196,8 +221,9 @@ namespace QiQiaoBan.ViewModel
             var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
             if (index < indexDivider)
                 return;
+            var piece = Pieces[index];
 
-            checkAllForMatching(index);
+            checkAllForMatching(piece);
         }
 
         public void ExecutePolygonTapped(TappedRoutedEventArgs parameter)
@@ -205,24 +231,29 @@ namespace QiQiaoBan.ViewModel
             var index = FrameworkElementTagToInt(parameter.OriginalSource as FrameworkElement);
             if (index < indexDivider)
                 return;
+            var piece = Pieces[index];
 
-            Pieces[index].ZIndex = ++ZIndex;
-            if (Pieces[index].MatchWithIndex >= 0)
-                UnMatch(Pieces[index]);
-            Pieces[index].Angle = Rotate(Pieces[index].Angle);
-            checkAllForMatching(index);
+            piece.ZIndex = ++ZIndex;
+            if (piece.MatchWithIndex >= 0)
+                UnMatch(piece);
+            piece.Angle = Rotate(piece.Angle);
+            checkAllForMatching(piece);
         }
 
-        private void checkAllForMatching(int index)
+        /// <summary>
+        /// We check if the moving piece match with one of the locking piece
+        /// </summary>
+        /// <param name="piece"></param>
+        private void checkAllForMatching(Piece piece)
         {
             for (int i = 0; i < indexDivider; i++)
             {
                 if (Pieces[i].MatchWithIndex >= 0)
                     continue;
 
-                if (isMatching(Pieces[index], Pieces[i]))
+                if (isMatching(piece, Pieces[i]))
                 {
-                    Match(Pieces[index], Pieces[i]);                    
+                    Match(piece, Pieces[i]);                    
                 }
             }
 
@@ -257,16 +288,22 @@ namespace QiQiaoBan.ViewModel
                 });
         }
 
+        // Add 45° and never more than 360 (easier to check if angle match)
         private double Rotate(double currentAngle)
         {
             return (currentAngle+45) % 360;
         }
 
-        private int FrameworkElementTagToInt(FrameworkElement polygon)
+        private int FrameworkElementTagToInt(FrameworkElement frameworkElement)
         {
-            return int.Parse(polygon.Tag.ToString());
+            return int.Parse(frameworkElement.Tag.ToString());
         }
 
+        /// <summary>
+        /// Because Square and Parallelogram have the same rotation every 90° and 180°
+        /// </summary>
+        /// <param name="piece"></param>
+        /// <returns></returns>
         private double getAngleModulo(Piece piece)
         {
             if (piece.Type.Equals(Piece.SQUARE))
@@ -307,6 +344,12 @@ namespace QiQiaoBan.ViewModel
             return true;
         }
 
+        /// <summary>
+        /// If some Piece are matching then we move them (like magnet)
+        /// and we save the Id of each other, also change style, etc
+        /// </summary>
+        /// <param name="pieceMoving"></param>
+        /// <param name="pieceLock"></param>
         private void Match(Piece pieceMoving, Piece pieceLock)
         {
             countMatched++;

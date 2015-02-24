@@ -50,6 +50,10 @@ namespace QiQiaoBan.ViewModel
 
         public const string SelectedPuzzlePropertyName = "SelectedPuzzle";
         private Puzzle _selectedPuzzle;
+        /// <summary>
+        /// Sets and gets the SelectedPuzzle property
+        /// Changes to that property's value navigate to GamePage
+        /// </summary>
         public Puzzle SelectedPuzzle
         {
             get
@@ -60,11 +64,17 @@ namespace QiQiaoBan.ViewModel
             {
                 if (Set(SelectedPuzzlePropertyName, ref _selectedPuzzle, value) && value != null)
                 {
+                    // Serialize object in string (Json) because SuspensionManager handle only primitive type
                     _navigationService.NavigateTo(ViewModelLocator.GAME_PAGEKEY, JsonConvert.SerializeObject(value));                    
                 }
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the MainViewModel class
+        /// </summary>
+        /// <param name="dataService"></param>
+        /// <param name="navigationService"></param>
         public MainViewModel(IDataService dataService, INavigationService navigationService)
         {
             Title = "QiQiaoBan";
@@ -82,6 +92,11 @@ namespace QiQiaoBan.ViewModel
             Puzzles = new ObservableCollection<Puzzle>(await _dataService.GetPuzzlesLocal());
         }
 
+        /// <summary>
+        /// LoadState invoked when binded Page is about to displayed
+        /// Gets asynchronously the puzzle's list with DataService
+        /// </summary>
+        /// <param name="e"></param>
         public async void LoadState(LoadStateEventArgs e)
         {
             Debug.WriteLine("MainViewModel.LoadState");
@@ -91,6 +106,7 @@ namespace QiQiaoBan.ViewModel
                 Puzzles.Clear();
                 foreach (var puzzle in puzzles)
                 {
+                    // Get BestTime for all puzzles from LocalSettings
                     var localSettings = ApplicationData.Current.LocalSettings;
                     puzzle.BestTime = localSettings.Values.ContainsKey(puzzle.Name) ? (int)localSettings.Values[puzzle.Name] : 0;
                     Puzzles.Add(puzzle);
