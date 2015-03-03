@@ -6,6 +6,10 @@ using System.Text;
 
 namespace QiQiaoBan.Design
 {
+    /// <summary>
+    /// This class is intended to show something in Blend or in VS 
+    /// It makes designing easier without starting app
+    /// </summary>
     public class DesignNavigationService : INavigationService
     {
         public string CurrentPageKey

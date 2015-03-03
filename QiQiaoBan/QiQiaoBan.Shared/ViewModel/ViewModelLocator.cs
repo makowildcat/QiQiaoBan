@@ -10,6 +10,9 @@ using System.Text;
 
 namespace QiQiaoBan.ViewModel
 {
+    /// <summary>
+    /// Used to create and expose the application's ViewModels
+    /// </summary>
     public class ViewModelLocator
     {
         public const string GAME_PAGEKEY = "GamePage";

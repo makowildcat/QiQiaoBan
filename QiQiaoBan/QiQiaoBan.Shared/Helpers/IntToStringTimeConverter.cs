@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Data;
 
 namespace QiQiaoBan.Helpers
 {
+    /// <summary>
+    /// In order to bind directly int to string target
+    /// </summary>
     class IntToStringTimeConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

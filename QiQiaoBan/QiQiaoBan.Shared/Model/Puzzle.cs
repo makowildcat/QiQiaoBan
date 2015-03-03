@@ -6,6 +6,9 @@ using System.Text;
 
 namespace QiQiaoBan.Model
 {
+    /// <summary>
+    /// Puzzle Model with name and a list of Piece
+    /// </summary>
     public class Puzzle : ObservableObject
     {
         public const string NamePropertyName = "Name";

@@ -5,6 +5,9 @@ using Windows.UI.Xaml.Data;
 
 namespace QiQiaoBan.Helpers
 {
+    /// <summary>
+    /// Little trick to bind Style with Resource
+    /// </summary>
     class StringToStyleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)

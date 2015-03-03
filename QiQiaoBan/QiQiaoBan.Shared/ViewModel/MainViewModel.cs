@@ -24,6 +24,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace QiQiaoBan.ViewModel
 {
+    /// <summary>
+    /// Main ViewModel handles everything in the menu, get data and populate the list
+    /// </summary>
     public class MainViewModel : ViewModelBase, IViewModel
     {
         private readonly IDataService _dataService;

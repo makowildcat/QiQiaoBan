@@ -8,6 +8,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace QiQiaoBan.View
 {
+    /// <summary>
+    /// Create this page in order to avoid coupling any code-behind with ViewModel
+    /// </summary>
     public class CustomPage : Page
     {
         public IViewModel ViewModel { get; set; }

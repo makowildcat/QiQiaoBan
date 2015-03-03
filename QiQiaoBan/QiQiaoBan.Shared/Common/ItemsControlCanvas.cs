@@ -7,6 +7,11 @@ using Windows.UI.Xaml.Data;
 
 namespace QiQiaoBan.Common
 {
+    /// <summary>
+    /// ItemsControl is wrapping UIElement defined in ContentControl. 
+    /// But Canvas must be composed of UIElement in order to make SetLeft, SetTop and SetZIndex working
+    /// So we bind it directly with the ContentControl
+    /// </summary>
     class ItemsControlCanvas : ItemsControl
     {
         protected override void PrepareContainerForItemOverride(Windows.UI.Xaml.DependencyObject element, object item)

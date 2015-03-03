@@ -5,6 +5,10 @@ using System.Text;
 
 namespace QiQiaoBan.Design
 {
+    /// <summary>
+    /// This class is intended to show something in Blend or in VS 
+    /// It makes designing easier without starting app
+    /// </summary>
     public class DesignDialogService : IDialogService
     {
         public System.Threading.Tasks.Task ShowError(Exception error, string title, string buttonText, Action afterHideCallback)

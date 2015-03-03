@@ -9,6 +9,9 @@ using Windows.Storage.Streams;
 
 namespace QiQiaoBan.Model
 {
+    /// <summary>
+    /// Use DataService to get some data asynchronously in ViewModel
+    /// </summary>
     public class DataService : IDataService
     {
         public async Task<IList<Puzzle>> GetPuzzlesLocal()

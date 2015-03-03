@@ -22,6 +22,9 @@ using Windows.UI.Xaml.Shapes;
 
 namespace QiQiaoBan.ViewModel
 {
+    /// <summary>
+    /// Game ViewModel handle all the logic of the game : start, match, win...
+    /// </summary>
     public class GameViewModel : ViewModelBase, IViewModel
     {
         private const double DELTA_MARGIN = 20.0;

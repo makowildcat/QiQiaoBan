@@ -8,6 +8,10 @@ using Windows.UI.Xaml.Media;
 
 namespace QiQiaoBan.Model
 {
+    /// <summary>
+    /// Piece Model use to retrieve each piece of the puzzle 
+    /// square, parallelogram and different size of triangle
+    /// </summary>
     public class Piece : ObservableObject
     {
         public const string LeftPropertyName = "Left";
