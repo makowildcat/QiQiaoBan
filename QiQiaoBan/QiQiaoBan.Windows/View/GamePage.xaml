@@ -8,13 +8,11 @@
     xmlns:help="using:QiQiaoBan.Helpers"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-    xmlns:common="using:QiQiaoBan.Common"
     xmlns:view="using:QiQiaoBan.View"
     mc:Ignorable="d"
     DataContext="{Binding Game, Source={StaticResource Locator}}">
 
     <view:CustomPage.Resources>
-        <help:StringToStyleConverter x:Key="StringToStyleConverter"/>
         <help:IntToStringTimeConverter x:Key="IntToStringTimeConverter"/>
     </view:CustomPage.Resources>
 
@@ -23,42 +21,7 @@
             <TextBlock Text="{Binding Name, Mode=OneTime}"/>
             <TextBlock Text="{Binding Time, Mode=OneWay, Converter={StaticResource IntToStringTimeConverter}}"/>
 
-            <common:ItemsControlCanvas x:Name="itemsControlPieces" ItemsSource="{Binding Pieces}">
-                <common:ItemsControlCanvas.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Canvas/>
-                    </ItemsPanelTemplate>
-                </common:ItemsControlCanvas.ItemsPanel>
-                <common:ItemsControlCanvas.ItemTemplate>
-                    <DataTemplate>
-                        <Polygon x:Name="polygon" 
-                                Points="{Binding Points, Mode=OneTime}"
-                                Style="{Binding Style, Converter={StaticResource StringToStyleConverter}}"
-                                ManipulationMode="All"
-                                Tag="{Binding IndexTag, Mode=OneTime}">
-                            <Polygon.RenderTransform>
-                                <RotateTransform Angle="{Binding Angle, Mode=OneWay}"/>
-                            </Polygon.RenderTransform>
-
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="ManipulationStarted">
-                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationStartedCommand, Mode=OneWay}"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="ManipulationDelta">
-                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationDeltaCommand, Mode=OneWay}"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="ManipulationCompleted">
-                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonManipulationCompletedCommand, Mode=OneWay}"/>
-                                </core:EventTriggerBehavior>
-                                <core:EventTriggerBehavior EventName="Tapped">
-                                    <core:InvokeCommandAction Command="{Binding ElementName=itemsControlPieces, Path=DataContext.PolygonTappedCommand, Mode=OneWay}"/>
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
-                        </Polygon>
-                    </DataTemplate>
-                </common:ItemsControlCanvas.ItemTemplate>
-
-            </common:ItemsControlCanvas>
+            <view:PiecesUserControl DataContext="{Binding PiecesViewModel}"/>
         </StackPanel>
     </Grid>
 </view:CustomPage>
