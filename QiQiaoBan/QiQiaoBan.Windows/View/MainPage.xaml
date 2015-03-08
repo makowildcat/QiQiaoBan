@@ -21,7 +21,7 @@
     
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
-    	    <TextBlock Text="{Binding Title, Mode=OneWay}" Margin="50,27,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    	    <TextBlock Text="{Binding Title, Mode=OneWay}" Margin="8,16,0,16" HorizontalAlignment="Left" VerticalAlignment="Top" Style="{ThemeResource HeaderTextBlockStyle}"/>
             <ListBox ItemsSource="{Binding Puzzles}" 
                      SelectedItem="{Binding SelectedPuzzle, Mode=TwoWay}"
                      ItemTemplate="{StaticResource DataTemplateListPuzzle}"/>

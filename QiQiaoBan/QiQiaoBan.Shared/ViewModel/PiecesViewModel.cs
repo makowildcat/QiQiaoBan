@@ -241,7 +241,7 @@ namespace QiQiaoBan.ViewModel
             countMatched++;
             pieceMoving.Left = pieceLock.Left;
             pieceMoving.Top = pieceLock.Top;
-            pieceMoving.Style = "PolygonMatch";
+            //pieceMoving.Style = "PolygonMatch";
             pieceMoving.ZIndex = -1;
             pieceMoving.MatchWithIndex = pieceLock.IndexTag;
             pieceLock.MatchWithIndex = pieceMoving.IndexTag;

@@ -17,11 +17,11 @@
     </view:CustomPage.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <StackPanel>
-            <TextBlock Text="{Binding Name, Mode=OneTime}"/>
-            <TextBlock Text="{Binding Time, Mode=OneWay, Converter={StaticResource IntToStringTimeConverter}}"/>
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Name, Mode=OneTime}" TextAlignment="Center" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,16,0,0"/>
+            <TextBlock Text="{Binding Time, Mode=OneWay, Converter={StaticResource IntToStringTimeConverter}}" TextAlignment="Center" Style="{ThemeResource SubheaderTextBlockStyle}"/>
 
-            <view:PiecesUserControl DataContext="{Binding PiecesViewModel}"/>
+            <view:PiecesUserControl DataContext="{Binding PiecesViewModel}" MinWidth="512"/>
         </StackPanel>
     </Grid>
 </view:CustomPage>

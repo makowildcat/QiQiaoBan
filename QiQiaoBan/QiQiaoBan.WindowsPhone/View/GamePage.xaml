@@ -18,10 +18,17 @@
 
     <Grid>              
         <StackPanel>
-            <TextBlock Text="{Binding Name, Mode=OneTime}"/>
-            <TextBlock Text="{Binding Time, Mode=OneWay, Converter={StaticResource IntToStringTimeConverter}}"/>
+            <TextBlock Text="{Binding Name, Mode=OneTime}" 
+                       Style="{ThemeResource HeaderTextBlockStyle}"
+                       Margin="8,0,0,0"
+                       />
+            <TextBlock Text="{Binding Time, Mode=OneWay, Converter={StaticResource IntToStringTimeConverter}}" 
+                       Style="{ThemeResource SubheaderTextBlockStyle}"
+                       Margin="8,0,0,0"
+                       />
             
             <view:PiecesUserControl DataContext="{Binding PiecesViewModel}"/>
         </StackPanel>       
     </Grid>
+
 </view:CustomPage>
