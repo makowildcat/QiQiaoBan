@@ -15,8 +15,13 @@
   <Puzzle>
     <Name>Heart</Name>
     <Pieces>
-      <Piece Left="150.00" Top="150.00" Angle="90" Type="square"/>
-      <Piece Left="50.00" Top="50.00" Angle="270" Type="largeTriangle"/>
+      <Piece Left="300.00" Top="150.00" Angle="270" Type="smallTriangle"/>
+      <Piece Left="200.00" Top="250.00" Angle="000" Type="smallTriangle"/>
+      <Piece Left="250.00" Top="300.00" Angle="000" Type="square"/>
+      <Piece Left="200.00" Top="200.00" Angle="270" Type="largeTriangle"/>
+      <Piece Left="300.00" Top="200.00" Angle="090" Type="largeTriangle"/>
+      <Piece Left="150.00" Top="250.00" Angle="000" Type="mediumTriangle"/>
+      <Piece Left="325.00" Top="175.00" Angle="090" Type="parallelogram"/>
     </Pieces>      
   </Puzzle>
   <Puzzle>
@@ -25,5 +30,17 @@
       <Piece Left="125.00" Top="50.00" Angle="90" Type="square"/>
       <Piece Left="225.00" Top="250.00" Angle="270" Type="largeTriangle"/>
     </Pieces>      
+  </Puzzle>
+  <Puzzle>
+    <Name>Square</Name>
+    <Pieces>
+      <Piece Left="150.00" Top="100.00" Angle="180" Type="smallTriangle"/>
+      <Piece Left="050.00" Top="200.00" Angle="270" Type="smallTriangle"/>
+      <Piece Left="100.00" Top="150.00" Angle="000" Type="square"/>
+      <Piece Left="100.00" Top="000.00" Angle="90" Type="largeTriangle"/>
+      <Piece Left="000.00" Top="100.00" Angle="0" Type="largeTriangle"/>
+      <Piece Left="150.00" Top="150.00" Angle="090" Type="mediumTriangle"/>
+      <Piece Left="175.00" Top="075.00" Angle="000" Type="parallelogram"/>
+    </Pieces>
   </Puzzle>
 </ArrayOfPuzzle>
