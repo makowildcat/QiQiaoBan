@@ -1,6 +1,6 @@
 # Qi Qiao Ban #
 
-Qi Qiao Ban (or [Tangram](http://en.wikipedia.org/wiki/Tangram)) is a dissection puzzle consisting of seven flat shapes, called tans, which are put together to form shapes. 
+Qi Qiao Ban (or [Tangram](http://en.wikipedia.org/wiki/Tangram)) is a dissection puzzle consisting of seven flat shapes, called tans, which are put together to form shapes.
 The objective of the puzzle is to form a specific shape (given only an outline or silhouette) using all seven pieces, which may not overlap.
 
 ### This application was created in order to learn ###
@@ -11,7 +11,7 @@ The objective of the puzzle is to form a specific shape (given only an outline o
 
 ### Features ###
 
-* Parsing XML 
+* Parsing XML
 * Parsing JSON (using [Json.NET](http://www.newtonsoft.com/json))
 * Manage Tombstoning
 * Save State
@@ -22,7 +22,13 @@ The objective of the puzzle is to form a specific shape (given only an outline o
 * ResourceDictionary
 * Events (with Command)
 
-### Blogs and articles usefull ###
+### Screenshot ###
+
+![Alt text](/screenshot/phone_puzzle_heart.png?raw=true "Uncompleted game")
+
+![Alt text](/screenshot/phone_puzzle_completed.png?raw=true "Uncompleted game")
+
+### Useful blogs and articles ###
 
 * http://www.galasoft.ch/articles
 * http://channel9.msdn.com/Series/Windows-Phone-8-1-Development-for-Absolute-Beginners/
